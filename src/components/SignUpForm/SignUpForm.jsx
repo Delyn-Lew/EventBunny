@@ -20,6 +20,7 @@ export default class SignUpForm extends Component {
   };
 
   handleSubmit = async (event) => {
+    // this.setState({ error: "" }); //clean up
     event.preventDefault();
     const formData = { ...this.state };
     delete formData.error;
@@ -28,6 +29,7 @@ export default class SignUpForm extends Component {
     try {
       const user = await signUp(formData);
       log("user: %o", user);
+      this.props.setUser(user);
     } catch (error) {
       this.setState({ error: "Sign Up Failed" });
     }
