@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/orders" element={<OrderHistoryPage />} />
           <Route path="/orders/new" element={<NewOrderPage />} />
-
+          {/* the route(s) below to be remove, for testing purpose */}
           <Route path="/orders2" element={<OrderHistoryPage />}>
             <Route path="new" element={<NewOrderPage />} />
             <Route path="simon" element={<p>Simon</p>} />
