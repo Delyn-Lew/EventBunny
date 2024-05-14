@@ -1,6 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function EventSetupPage() {
 	return (
 		<div>
+			<br />
+			<Link to="/event/:eventID/task/new">
+				<button>TASKS SETUP</button>
+			</Link>
 			<p>EVENTSETUP</p>
 			<form>
 				<label>Event Title</label>
@@ -17,6 +23,8 @@ export default function EventSetupPage() {
 				<br />
 				<button>SAVE</button>
 			</form>
+			<br />
+			{/* <button>SUBMIT EVENT</button> */}
 		</div>
 	);
 }

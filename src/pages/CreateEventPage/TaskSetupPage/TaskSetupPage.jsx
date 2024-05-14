@@ -1,6 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function TaskSetupPage() {
 	return (
 		<div>
+			<br />
+			<Link to="/event/new">
+				<button>EVENT SETUP</button>
+			</Link>
 			<p>TASKSETUP</p>
 			<form>
 				<label>Task Name</label>
@@ -11,6 +17,8 @@ export default function TaskSetupPage() {
 				<br />
 				<button>SAVE</button>
 			</form>
+			<br />
+			<button>SUBMIT EVENT</button>
 		</div>
 	);
 }
