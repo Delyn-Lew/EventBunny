@@ -28,12 +28,16 @@ export const signUp = async (userData) => {
   log("userData: %o", userData);
 
   const token = await usersAPI.signUp(userData);
-
   log("token: %o", token);
+
   localStorage.setItem("token", token);
   return getUser();
 };
 
 export const logOut = () => {
   localStorage.removeItem("token");
+};
+
+export const login = (email, password) => {
+  log(email, password);
 };

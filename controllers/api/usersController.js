@@ -1,5 +1,6 @@
 const debug = require("debug")("mern:controllers:api:usersController");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const User = require("../../models/user");
 
 const createJWT = (user) =>
@@ -21,6 +22,26 @@ const create = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user === null) {
+    res.status(401).json({ msg: "User not found" });
+    return;
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+
+  if (match) {
+    const token = createJWT(user);
+    res.json(token);
+  } else {
+    res.status(401).json({ msg: "Password incorrect" });
+  }
+};
+
 module.exports = {
   create,
+  login,
 };
