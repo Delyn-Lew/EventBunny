@@ -6,6 +6,7 @@ export default function NavBar({ setUser }) {
     logOut();
     setUser(null);
   };
+
   return (
     <nav>
       <NavLink to="/orders">Order History</NavLink>

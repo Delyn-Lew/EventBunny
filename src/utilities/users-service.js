@@ -38,6 +38,18 @@ export const logOut = () => {
   localStorage.removeItem("token");
 };
 
-export const login = (email, password) => {
-  log(email, password);
+export const login = async (email, password) => {
+  log("%s,%s", email, password);
+  const user = { email, password };
+
+  const token = await usersAPI.login(user);
+  log("token: %o", token);
+
+  localStorage.setItem("token", token);
+  return getUser();
+};
+
+export const checkToken = async () => {
+  const dateStr = await usersAPI.checkToken();
+  return new Date(dateStr);
 };
