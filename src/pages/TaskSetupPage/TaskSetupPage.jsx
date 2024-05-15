@@ -1,4 +1,5 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
+// import { addTask } from "../../utilities/tasks-api";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const handleSave = async (event) => {
@@ -7,12 +8,15 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
 		console.log("data: %o", data);
+		// await addTask(data); //from tasks-api.js
 		setTasks([...tasks, data]);
 	};
 
 	const onSubmit = () => {
 		console.log("submitted");
 		// need to join tasks into event
+		console.log(tasks);
+		//await join(tasks); //from tasks-api.js
 	};
 
 	return (
@@ -34,8 +38,8 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 			<div>
 				<ul>
 					{tasks.map((task) => (
-						<li key={task.taskname}>
-							{task.taskname} - {task.assignee}
+						<li key={task.name}>
+							{task.name} - {task.assignee}
 						</li>
 					))}
 				</ul>
