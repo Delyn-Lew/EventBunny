@@ -8,7 +8,7 @@ import EventOverviewPage from "../EventOverviewPage/EventOverviewPage";
 import EventSetupPage from "../EventSetupPage/EventSetupPage";
 import TaskSetupPage from "../TaskSetupPage/TaskSetupPage";
 
-const log = debug("mern:pages:App:App");
+const log = debug("eventbunny:pages:App:App");
 
 function App() {
 	const [user, setUser] = useState(getUser());

@@ -1,18 +1,18 @@
 meta {
-  name: createEvent
+  name: editEvent
   type: http
-  seq: 4
+  seq: 8
 }
 
-post {
-  url: http://localhost:3000/api/events
+put {
+  url: http://localhost:3000/api/events/66447a74b9dfea6a6e113d72/
   body: json
   auth: none
 }
 
 body:json {
   {
-    "name":"fishing",
+    "name":"swimming",
     "location":"lake",
     "datetime":"2024-06-14"
   }

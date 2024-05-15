@@ -1,18 +1,19 @@
 meta {
   name: createTasks
   type: http
-  seq: 6
+  seq: 9
 }
 
 post {
-  url: http://localhost:3000/users/events/66437f2ba4d6c27a570f4d49/tasks
+  url: http://localhost:3000/api/events/66437f2ba4d6c27a570f4d49/tasks
   body: json
   auth: none
 }
 
 body:json {
   {
-    "name":"water",
-    "status":"incomplete"
+    "name":"dance",
+    "status":"incomplete",
+    "delegated":"66437eba44226e2ba77a44ed"
   }
 }
