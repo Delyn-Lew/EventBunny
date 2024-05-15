@@ -1,0 +1,19 @@
+meta {
+  name: eventsIndex
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:3000/users/events
+  body: none
+  auth: none
+}
+
+body:json {
+  {
+    "name":"zong",
+    "email":"zh@hotmail",
+    "password":"123"
+  }
+}

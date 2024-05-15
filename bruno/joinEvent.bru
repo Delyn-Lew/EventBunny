@@ -1,0 +1,18 @@
+meta {
+  name: joinEvent
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:3000/users/events/66437f2ba4d6c27a570f4d49/join
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"drinks",
+    "status":"incomplete"
+  }
+}
