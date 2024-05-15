@@ -1,0 +1,19 @@
+meta {
+  name: createEvent
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/users/events
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name":"cohesion",
+    "location":"zoo",
+    "datetime":"2024-06-14"
+  }
+}
