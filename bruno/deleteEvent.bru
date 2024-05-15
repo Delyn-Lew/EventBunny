@@ -1,0 +1,19 @@
+meta {
+  name: deleteEvent
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:3000/api/events/66446a3fdad20df802526647
+  body: none
+  auth: none
+}
+
+body:json {
+  {
+    "name":"fishing",
+    "location":"lake",
+    "datetime":"2024-06-14"
+  }
+}
