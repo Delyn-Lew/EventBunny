@@ -1,14 +1,19 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
-// import { addTask } from "../../utilities/tasks-api";
+import { addTask } from "../../utilities/tasks-api";
+import { useParams } from "react-router-dom";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
+	const { eventId } = useParams();
+	console.log(eventId);
 	const handleSave = async (event) => {
 		//save task into db and state
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
 		console.log("data: %o", data);
-		// await addTask(data); //from tasks-api.js
+		const taskData = { ...data, event: eventId };
+		console.log(taskData);
+		await addTask(taskData, eventId); //from tasks-api.js
 		setTasks([...tasks, data]);
 	};
 

@@ -19,15 +19,17 @@ app.use(require("./config/checkToken").checkTokenMiddleware);
 
 // Put API routes here, before the "catch all" route
 app.use("/api/users", require("./routes/api/usersRoutes"));
+app.use("/api/events", require("./routes/api/eventsRoutes"));
+app.use("/api/events", require("./routes/api/tasksRoutes"));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+	res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-  debug(`Express app running on port ${port}`);
+	debug(`Express app running on port ${port}`);
 });

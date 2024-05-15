@@ -11,7 +11,7 @@ const log = debug("mern:pages:App:App");
 
 function App() {
 	const [user, setUser] = useState(getUser());
-	// const [event, setEvent] = useState([]); // need to pass in getEvents for state
+	// const [eventID, setEventID] = useState([]); // need to pass in getEvents for state
 	const [tasks, setTasks] = useState([]); // need to pass in getTasks for state
 	console.log(user?.["_id"]);
 	log("user %o", user);
@@ -34,7 +34,7 @@ function App() {
 					element={<EventSetupPage userID={user["_id"]} />}
 				/>
 				<Route
-					path="/events/:eventID/tasks/new"
+					path="/events/:eventId/tasks/new"
 					element={<TaskSetupPage setTasks={setTasks} tasks={tasks} />}
 				/>
 			</Routes>

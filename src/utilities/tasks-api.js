@@ -1,5 +1,5 @@
 import sendRequest from "./send-request";
 
-export function addTask(taskArray) {
-	return sendRequest("/api/events/:eventID/tasks/new", "POST", taskArray);
+export function addTask(task, eventId) {
+	return sendRequest(`/api/events/${eventId}/tasks`, "POST", task);
 }

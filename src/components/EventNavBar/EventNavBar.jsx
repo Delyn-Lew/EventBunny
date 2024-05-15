@@ -6,14 +6,14 @@ export default function EventNavBar() {
 		<nav className="eventnav">
 			<NavLink
 				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to="/events/create"
+				to="/events"
 			>
 				EVENT SETUP
 			</NavLink>
 			<br />
 			<NavLink
 				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to="/events/:eventID/tasks/new"
+				to="/events/tasks/new"
 			>
 				TASKS SETUP
 			</NavLink>
