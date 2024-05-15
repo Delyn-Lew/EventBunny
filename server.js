@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
-const debug = require("debug")("mern:server");
+const debug = require("debug")("eventbunny:server");
 // Always require and configure near the top
 require("dotenv").config();
 require("./config/database"); //for connecting to database
@@ -20,14 +20,17 @@ app.use(require("./config/checkToken").checkTokenMiddleware);
 // Put API routes here, before the "catch all" route
 app.use("/api/users", require("./routes/api/usersRoutes"));
 
+//TODO setup routes for landing page.
+app.use("/api/events", require("./routes/api/eventsRoutes"));
+
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+	res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, function () {
-  debug(`Express app running on port ${port}`);
+	debug(`Express app running on port ${port}`);
 });

@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./pages/App/App.jsx";
 import { BrowserRouter } from "react-router-dom";
 
-localStorage.debug = "mern:*";
+localStorage.debug = "eventbunny:*";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+	<React.StrictMode>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</React.StrictMode>
 );

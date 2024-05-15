@@ -7,37 +7,37 @@ import AuthPage from "../AuthPage/AuthPage";
 import NewOrderPage from "../NewOrderPage/NewOrderPage";
 import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 
-const log = debug("mern:pages:App:App");
+const log = debug("eventbunny:pages:App:App");
 
 function App() {
-  const [user, setUser] = useState(getUser());
-  log("user %o", user);
+	const [user, setUser] = useState(getUser());
+	log("user %o", user);
 
-  if (!user) {
-    return (
-      <main className="App">
-        <AuthPage setUser={setUser} />
-      </main>
-    );
-  }
+	if (!user) {
+		return (
+			<main className='App'>
+				<AuthPage setUser={setUser} />
+			</main>
+		);
+	}
 
-  return (
-    <>
-      <main className="App">
-        <NavBar setUser={setUser} />
+	return (
+		<>
+			<main className='App'>
+				<NavBar setUser={setUser} />
 
-        <Routes>
-          <Route path="/orders" element={<OrderHistoryPage />} />
-          <Route path="/orders/new" element={<NewOrderPage />} />
-          {/* the route(s) below to be remove, for testing purpose */}
-          <Route path="/orders2" element={<OrderHistoryPage />}>
-            <Route path="new" element={<NewOrderPage />} />
-            <Route path="simon" element={<p>Simon</p>} />
-          </Route>
-        </Routes>
-      </main>
-    </>
-  );
+				<Routes>
+					<Route path='/orders' element={<OrderHistoryPage />} />
+					<Route path='/orders/new' element={<NewOrderPage />} />
+					{/* the route(s) below to be remove, for testing purpose */}
+					<Route path='/orders2' element={<OrderHistoryPage />}>
+						<Route path='new' element={<NewOrderPage />} />
+						<Route path='simon' element={<p>Simon</p>} />
+					</Route>
+				</Routes>
+			</main>
+		</>
+	);
 }
 
 export default App;
