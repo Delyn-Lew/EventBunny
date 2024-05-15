@@ -1,7 +1,7 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 
 export default function EventSetupPage() {
-	const handleSave = (event) => {
+	const handleSave = async (event) => {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);

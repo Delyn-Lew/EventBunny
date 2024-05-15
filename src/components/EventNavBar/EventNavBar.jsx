@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./styles.css";
 
 export default function EventNavBar() {
 	return (
 		<nav className="eventnav">
-			<Link to="/events/create">EVENT SETUP</Link>
+			<NavLink
+				className={({ isActive }) => (isActive ? "active-link" : "")}
+				to="/events/create"
+			>
+				EVENT SETUP
+			</NavLink>
 			<br />
-			<Link to="/events/:eventID/tasks/new">TASKS SETUP</Link>
+			<NavLink
+				className={({ isActive }) => (isActive ? "active-link" : "")}
+				to="/events/:eventID/tasks/new"
+			>
+				TASKS SETUP
+			</NavLink>
 		</nav>
 	);
 }
