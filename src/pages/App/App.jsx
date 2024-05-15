@@ -5,7 +5,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
 import NewOrderPage from "../NewOrderPage/NewOrderPage";
-import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
+import EventOverviewPage from "../EventOverviewPage/EventOverviewPage";
 
 const log = debug("mern:pages:App:App");
 
@@ -27,10 +27,10 @@ function App() {
         <NavBar setUser={setUser} />
 
         <Routes>
-          <Route path="/orders" element={<OrderHistoryPage />} />
+          <Route path="/orders" element={<EventOverviewPage />} />
           <Route path="/orders/new" element={<NewOrderPage />} />
           {/* the route(s) below to be remove, for testing purpose */}
-          <Route path="/orders2" element={<OrderHistoryPage />}>
+          <Route path="/orders2" element={<EventOverviewPage />}>
             <Route path="new" element={<NewOrderPage />} />
             <Route path="simon" element={<p>Simon</p>} />
           </Route>
