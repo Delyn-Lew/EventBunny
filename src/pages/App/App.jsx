@@ -11,6 +11,9 @@ const log = debug("mern:pages:App:App");
 
 function App() {
 	const [user, setUser] = useState(getUser());
+	// const [events, setEvents] = useState([]); // need to pass in getEvents for state
+	const [tasks, setTasks] = useState([]); // need to pass in getTasks for state
+
 	log("user %o", user);
 
 	if (!user) {
@@ -27,7 +30,10 @@ function App() {
 			<Link to="/events/create">Create new event</Link>
 			<Routes>
 				<Route path="/events/create" element={<EventSetupPage />} />
-				<Route path="/events/:eventID/tasks/new" element={<TaskSetupPage />} />
+				<Route
+					path="/events/:eventID/tasks/new"
+					element={<TaskSetupPage setTasks={setTasks} tasks={tasks} />}
+				/>
 			</Routes>
 		</main>
 	);
