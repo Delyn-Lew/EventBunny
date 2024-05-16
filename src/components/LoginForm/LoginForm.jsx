@@ -17,7 +17,7 @@ export default function LoginForm({ setUser }) {
 		const { email, password } = data;
 		const user = await login(email, password);
 		setUser(user);
-		navigate("/orders");
+		navigate("/dashboard");
 	};
 
 	return (
@@ -27,13 +27,13 @@ export default function LoginForm({ setUser }) {
 
 				<label>
 					Email:
-					<input name='email' />
+					<input name="email" />
 				</label>
 				<br />
 
 				<label>
 					Password:
-					<input name='password' />
+					<input name="password" />
 				</label>
 				<br />
 				<button>Login</button>

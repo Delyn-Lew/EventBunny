@@ -9,7 +9,7 @@ export default function NavBar({ setUser }) {
 
 	return (
 		<nav>
-			<NavLink to="/">Home</NavLink>
+			<NavLink to="/dashboard">Home</NavLink>
 			&nbsp; | &nbsp;
 			<NavLink to="/events/:userID">My Events</NavLink>
 			&nbsp;&nbsp;
