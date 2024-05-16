@@ -14,7 +14,7 @@ function App() {
 	const [user, setUser] = useState(getUser());
 	// const [eventID, setEventID] = useState([]); // need to pass in getEvents for state
 	const [tasks, setTasks] = useState([]); // need to pass in getTasks for state
-	console.log(user?.["_id"]);
+	log("userid %o", user?.["_id"]);
 	log("user %o", user);
 
 	if (!user) {
