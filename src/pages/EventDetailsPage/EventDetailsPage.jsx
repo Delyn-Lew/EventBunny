@@ -21,14 +21,16 @@ export default function EventDetailsPage() {
 		fetchTasks();
 	}, [eventId]);
 
+	const localDate = new Date(event.date).toLocaleString();
+
 	return (
 		<>
 			<h1>{event.name}</h1>
 			<section>
 				<p>{event.description}</p>
-				<p>DATE: {event.date}</p>
+				<p>DATE: {localDate}</p>
 				<p>LOCATION: {event.location}</p>
-				<p>HOST: {event.host.name}</p>
+				<p>HOST: {event.host?.name}</p>
 			</section>
 			<h2>Tasks</h2>
 			<section>

@@ -30,16 +30,16 @@ export default function EventSetupPage({ userID }) {
 			<p>EVENTSETUP</p>
 			<form onSubmit={handleSave}>
 				<label htmlFor="name">Event Title</label>
-				<input type="text" name="name" />
+				<input type="text" name="name" id="name" />
 				<br />
 				<label htmlFor="description">Event Description</label>
-				<input type="text" name="description" />
+				<input type="text" name="description" id="description" />
 				<br />
 				<label htmlFor="date">Event Date/Time</label>
-				<input type="text" name="date" />
+				<input type="datetime-local" name="date" id="date" />
 				<br />
 				<label htmlFor="location">Event Location</label>
-				<input type="text" name="location" />
+				<input type="text" name="location" id="location" />
 				<br />
 				<button type="submit">SAVE</button>
 			</form>

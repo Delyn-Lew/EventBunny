@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-api";
-import { useParams /*useNavigate*/ } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getTasks } from "../../utilities/tasks-api";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const { eventId } = useParams();
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchTasks = async () => {
@@ -21,6 +21,7 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
+		data.status = data.status ? "completed" : "incomplete";
 		console.log("data: %o", data);
 		const taskData = { ...data, event: eventId };
 		console.log(taskData);
@@ -28,8 +29,8 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		setTasks([...tasks, data]);
 	};
 
-	const onSubmit = () => {
-		// navigate(`/events/${eventId}`); //navigate to event page
+	const handleSubmit = () => {
+		navigate(`/events/${eventId}`);
 	};
 
 	return (
@@ -39,20 +40,26 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 			<p>TASKSETUP</p>
 			<form onSubmit={handleSave}>
 				<label htmlFor="name">Task Name</label>
-				<input type="text" name="name" />
+				<input type="text" name="name" id="name" />
 				<br />
 				<label htmlFor="assignee">Assignee</label>
-				<input type="text" name="assignee" />
+				<input type="text" name="assignee" id="assignee" />
 				<br />
+				<label htmlFor="status">Status</label>
+				<input type="checkbox" name="status" id="status" />
+				<p style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}>
+					(check the box if completed)
+				</p>
+
 				<button type="submit">SAVE</button>
 			</form>
 			<br />
-			<button onClick={onSubmit}>SUBMIT EVENT</button>
+			<button onClick={handleSubmit}>SUBMIT EVENT</button>
 			<div>
 				<ul>
 					{tasks.map((task) => (
 						<li key={task.name}>
-							{task.name} - {task.assignee}
+							{task.name} - {task.assignee} - {task.status}
 						</li>
 					))}
 				</ul>
