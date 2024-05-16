@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import debug from "debug";
 import { checkToken } from "../../utilities/users-service";
 
@@ -12,13 +12,16 @@ export default function EventOverviewPage() {
 	return (
 		<>
 			{/* need to add in .css file for tailwind to work */}
-			<button
-				className='middle none center mr-3 rounded-lg border border-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:opacity-75 focus:ring focus:ring-pink-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
-				data-ripple-dark='true'>
-				Create new event
-			</button>
+			<Link to="/events/create">
+				<button
+					className="middle none center mr-3 rounded-lg border border-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:opacity-75 focus:ring focus:ring-pink-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+					data-ripple-dark="true"
+				>
+					Create new event
+				</button>
+			</Link>
 			<button onClick={handleCheckToken}>Check Login</button>
-			<table className='events-table'>
+			<table className="events-table">
 				<thead>
 					<tr>
 						<th>Event</th>
