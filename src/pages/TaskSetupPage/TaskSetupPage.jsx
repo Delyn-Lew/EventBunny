@@ -3,7 +3,7 @@ import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:TaskSetupPage");
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getTasks, updateTask } from "../../utilities/tasks-service";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
@@ -51,7 +51,7 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 			<br />
 			<EventNavBar />
 			<p>TASKSETUP</p>
-			{!isEditPage ? (
+			{!isEditPage && (
 				<form onSubmit={handleSave}>
 					<label htmlFor="name">Task Name</label>
 					<input type="text" name="name" id="name" />
@@ -69,10 +69,6 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 
 					<button type="submit">SAVE</button>
 				</form>
-			) : (
-				<Link to={`/events/${eventId}/tasks/new`}>
-					<button>Go to task creation page</button>
-				</Link>
 			)}
 
 			<br />

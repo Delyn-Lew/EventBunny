@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 export default function EventNavBar({ disabled }) {
 	const { eventId } = useParams();
+	const isEditPage = window.location.pathname.endsWith("/edit");
 
 	return (
 		<nav className="eventnav">
@@ -11,15 +12,20 @@ export default function EventNavBar({ disabled }) {
 				className={({ isActive }) => (isActive ? "active-link" : "")}
 				to={eventId ? `/events/edit/${eventId}` : "/events/create"}
 			>
-				<button type="button">Event Creation/Edit</button>
+				<button type="button">{eventId ? "Edit Event" : "Create Event"}</button>
 			</NavLink>
 			<br />
 			<NavLink
 				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to={`/events/${eventId}/tasks/new`}
+				to={
+					!isEditPage
+						? `/events/${eventId}/tasks/edit`
+						: `/events/${eventId}/tasks/new`
+				}
 			>
 				<button disabled={disabled} type="button">
-					Task Creation
+					{" "}
+					{!isEditPage ? "Edit Tasks" : "Add Task"}
 				</button>
 			</NavLink>
 		</nav>
