@@ -27,13 +27,13 @@ export default function LoginForm({ setUser }) {
 
 				<label>
 					Email:
-					<input name="email" />
+					<input name='email' />
 				</label>
 				<br />
 
 				<label>
 					Password:
-					<input name="password" />
+					<input name='password' />
 				</label>
 				<br />
 				<button>Login</button>
