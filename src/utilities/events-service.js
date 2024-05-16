@@ -7,3 +7,7 @@ export const addEvent = async (eventData) => {
 export const fetchEventsInfo = async () => {
   return await eventsAPI.fetchEventsInfo();
 };
+
+export const getEvent = async (eventId) => {
+	return await eventsAPI.getEvent(eventId);
+};
