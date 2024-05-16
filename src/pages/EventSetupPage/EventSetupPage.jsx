@@ -1,10 +1,12 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { useNavigate } from "react-router-dom";
 import { addEvent } from "../../utilities/events-api";
+import { useState } from "react";
 
 export default function EventSetupPage({ userID }) {
+	const [disabled, setDisabled] = useState(true);
 	const navigate = useNavigate();
-
+	let eventId = "";
 	const handleSave = async (event) => {
 		//save event into db
 		event.preventDefault();
@@ -13,14 +15,18 @@ export default function EventSetupPage({ userID }) {
 		console.log("data: %o", data);
 		const eventData = { ...data, host: userID };
 		const response = await addEvent(eventData); // from events-api.js
-		const eventId = response._id;
+		eventId = response._id;
 		navigate(`/events/${eventId}/tasks/new`);
 	};
 
 	return (
 		<div>
 			<br />
-			<EventNavBar />
+			<EventNavBar
+				eventId={eventId}
+				disabled={disabled}
+				setDisabled={setDisabled}
+			/>
 			<p>EVENTSETUP</p>
 			<form onSubmit={handleSave}>
 				<label htmlFor="name">Event Title</label>
