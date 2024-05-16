@@ -37,11 +37,14 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		navigate(`/events/${eventId}`);
 	};
 
+	const handleChange = (field, idx) => (event) => {
+		const newTasks = [...tasks];
+		newTasks[idx][field] = event.target.value;
+		setTasks(newTasks);
+	};
+
 	const handleUpdate = async (taskId, eventId, data) => {
-		console.log(data.status);
 		event.preventDefault();
-		console.log(taskId, eventId, data);
-		data.status = data.status ? "completed" : "incomplete";
 		await updateTask(taskId, eventId, data);
 		navigate(`/events/${eventId}/tasks/edit`);
 	};
@@ -79,47 +82,40 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 						{tasks?.map((task, idx) => (
 							<form
 								onSubmit={() => handleUpdate(task._id, eventId, task)}
-								key={task.name}
+								key={task._id}
 							>
 								<label htmlFor="name">Task Name</label>
 								<input
 									type="text"
 									name="name"
 									value={task.name}
-									onChange={(evt) =>
-										setTasks(
-											tasks.map((item, index) =>
-												index === idx
-													? { ...item, name: evt.target.value }
-													: item
-											)
-										)
-									}
+									onChange={handleChange("name", idx)}
 								/>
 								<label htmlFor="assignee">Assignee</label>
 								<input
 									type="text"
 									name="assignee"
 									value={task?.assignee}
-									onChange={(evt) =>
-										setTasks(
-											tasks.map((item, index) =>
-												index === idx
-													? { ...item, assignee: evt.target.value }
-													: item
-											)
-										)
-									}
+									onChange={handleChange("assignee", idx)}
 								/>
 								<label htmlFor="status">Status</label>
 								<input
 									type="checkbox"
 									name="status"
 									value={task?.status}
+									checked={task?.status === "completed"}
 									onChange={() =>
 										setTasks(
 											tasks.map((item, index) =>
-												index === idx ? { ...item, status: !item.status } : item
+												index === idx
+													? {
+															...item,
+															status:
+																item.status === "completed"
+																	? "incomplete"
+																	: "completed",
+														}
+													: item
 											)
 										)
 									}
