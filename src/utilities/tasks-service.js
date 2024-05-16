@@ -4,6 +4,6 @@ export const addTask = async (task) => {
 	return await tasksAPI.addTask(task);
 };
 
-export const getTasks = async () => {
-	return await tasksAPI.getTasks();
+export const getTasks = async (eventId) => {
+	return await tasksAPI.getTasks(eventId);
 };
