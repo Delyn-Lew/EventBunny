@@ -8,6 +8,7 @@ import EventOverviewPage from "../EventOverviewPage/EventOverviewPage";
 import EventSetupPage from "../EventSetupPage/EventSetupPage";
 import TaskSetupPage from "../TaskSetupPage/TaskSetupPage";
 import EventDetailsPage from "../EventDetailsPage/EventDetailsPage";
+import "../../index.css";
 
 const log = debug("eventbunny:pages:App:App");
 
