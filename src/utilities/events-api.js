@@ -13,3 +13,7 @@ export function fetchEventsInfo() {
 export function getEvent(eventId) {
 	return sendRequest(`${EVENTS_URL}/${eventId}`, "GET");
 }
+
+export function updateEvent(eventId, eventData) {
+	return sendRequest(`${EVENTS_URL}/${eventId}`, "PUT", eventData);
+}

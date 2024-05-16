@@ -4,7 +4,10 @@ const User = require("../../models/user");
 
 const index = async (req, res) => {
 	try {
-		const tasks = await Task.find({ event: req.params.eventId }).populate("delegated", "name");
+		const tasks = await Task.find({ event: req.params.eventId }).populate(
+			"delegated",
+			"name"
+		);
 		res.status(200).json(tasks);
 	} catch (error) {
 		res.status(500).json({ error });

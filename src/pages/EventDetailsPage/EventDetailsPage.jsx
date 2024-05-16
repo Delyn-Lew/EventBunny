@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getEvent } from "../../utilities/events-api";
 import { getTasks } from "../../utilities/tasks-api";
 
@@ -7,7 +7,7 @@ export default function EventDetailsPage() {
 	const [event, setEvent] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const { eventId } = useParams();
-
+	const navigate = useNavigate();
 	useEffect(() => {
 		async function fetchEvent() {
 			const event = await getEvent(eventId);
@@ -27,6 +27,13 @@ export default function EventDetailsPage() {
 		<>
 			<h1>{event.name}</h1>
 			<section>
+				<button
+					onClick={() => {
+						navigate(`/events/edit/${eventId}`);
+					}}
+				>
+					Edit Event
+				</button>
 				<p>{event.description}</p>
 				<p>DATE: {localDate}</p>
 				<p>LOCATION: {event.location}</p>
