@@ -1,45 +1,101 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
-import { useNavigate } from "react-router-dom";
-import { addEvent } from "../../utilities/events-service";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+	addEvent,
+	getEvent,
+	updateEvent,
+} from "../../utilities/events-service";
+import { useState, useEffect } from "react";
 import debug from "debug";
 const log = debug("eventbunny:pages:EventSetupPage");
 
 export default function EventSetupPage({ userID }) {
 	const [disabled, setDisabled] = useState(true);
 	const navigate = useNavigate();
-	let eventId = "";
+	const { eventId } = useParams();
+	const [event, setEvent] = useState(null);
+
+	let evtId = "";
+
+	useEffect(() => {
+		async function fetchEventDetails() {
+			if (eventId) {
+				const data = await getEvent(eventId);
+				setEvent(data);
+			}
+		}
+		fetchEventDetails();
+	}, [eventId]);
+
 	const handleSave = async (event) => {
-		//save event into db
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
 		log("data: %o", data);
-		const eventData = { ...data, host: userID };
-		const response = await addEvent(eventData);
-		eventId = response._id;
-		navigate(`/events/${eventId}/tasks/new`);
+		if (eventId) {
+			await updateEvent(eventId, data);
+			navigate(`/events/${eventId}/tasks/edit`);
+		} else {
+			const eventData = { ...data, host: userID };
+			const response = await addEvent(eventData);
+			evtId = response._id;
+			navigate(`/events/${evtId}/tasks/new`);
+		}
 	};
 
 	return (
 		<div>
 			<br />
-			<EventNavBar eventId={eventId} disabled={disabled} setDisabled={setDisabled} />
+			<EventNavBar
+				eventId={evtId}
+				disabled={disabled}
+				setDisabled={setDisabled}
+			/>
 			<p>EVENTSETUP</p>
 			<form onSubmit={handleSave}>
-				<label htmlFor='name'>Event Title</label>
-				<input type='text' name='name' id='name' />
+				<label htmlFor="name">Event Title</label>
+				<input
+					type="text"
+					name="name"
+					id="name"
+					value={event?.name}
+					onChange={(evt) => setEvent({ ...event, name: evt.target.value })}
+				/>
 				<br />
-				<label htmlFor='description'>Event Description</label>
-				<input type='text' name='description' id='description' />
+				<label htmlFor="description">Event Description</label>
+				<input
+					type="text"
+					name="description"
+					id="description"
+					value={event?.description}
+					onChange={(evt) =>
+						setEvent({ ...event, description: evt.target.value })
+					}
+				/>
 				<br />
-				<label htmlFor='date'>Event Date/Time</label>
-				<input type='datetime-local' name='date' id='date' />
+				<label htmlFor="date">Event Date/Time</label>
+				<input
+					type="datetime-local"
+					name="date"
+					id="date"
+					value={event?.date}
+					onChange={(evt) => setEvent({ ...event, date: evt.target.value })}
+				/>
 				<br />
-				<label htmlFor='location'>Event Location</label>
-				<input type='text' name='location' id='location' />
+				<label htmlFor="location">Event Location</label>
+				<input
+					type="text"
+					name="location"
+					id="location"
+					value={event?.location}
+					onChange={(evt) => setEvent({ ...event, location: evt.target.value })}
+				/>
 				<br />
-				<button type='submit'>SAVE</button>
+				{eventId ? (
+					<button type="submit">UPDATE</button>
+				) : (
+					<button type="submit">SAVE</button>
+				)}
 			</form>
 			<br />
 		</div>
