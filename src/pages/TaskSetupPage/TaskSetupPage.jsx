@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-api";
-import { useParams } from "react-router-dom";
+import { useParams /*useNavigate*/ } from "react-router-dom";
 import { getTasks } from "../../utilities/tasks-api";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const { eventId } = useParams();
+	// const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchTasks = async () => {
@@ -28,10 +29,7 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 	};
 
 	const onSubmit = () => {
-		console.log("submitted");
-		// need to join tasks into event
-		console.log(tasks);
-		//await join(tasks); //from tasks-api.js
+		// navigate(`/events/${eventId}`); //navigate to event page
 	};
 
 	return (

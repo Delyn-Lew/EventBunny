@@ -7,8 +7,22 @@ const userId2 = "66437eba44226e2ba77a44ed";
 
 const index = async (req, res) => {
 	try {
-		const events = await Event.find().populate("host", "name").populate("attendees", "name");
+		const events = await Event.find()
+			.populate("host", "name")
+			.populate("attendees", "name");
 		res.status(200).json(events);
+	} catch (error) {
+		res.status(500).json({ error });
+	}
+};
+
+const getOne = async (req, res) => {
+	try {
+		const event = await Event.findById(req.params.eventId).populate("host");
+		if (!event) {
+			return res.status(404).json({ error: "event not found" });
+		}
+		res.status(200).json(event);
 	} catch (error) {
 		res.status(500).json({ error });
 	}
@@ -97,4 +111,5 @@ module.exports = {
 	join,
 	edit,
 	deleteOne,
+	getOne,
 };

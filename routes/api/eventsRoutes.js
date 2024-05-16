@@ -11,6 +11,7 @@ const tasksCtrl = require("../../controllers/api/tasksController");
 //* ALL server routes here start with /api/events
 //EVENTS
 router.get("/", eventsCtrl.index);
+router.get("/:eventId", eventsCtrl.getOne);
 router.post("/", eventsCtrl.create);
 //getting all the user's events
 router.get("/user", eventsCtrl.userIndex);

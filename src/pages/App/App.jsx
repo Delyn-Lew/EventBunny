@@ -7,6 +7,7 @@ import AuthPage from "../AuthPage/AuthPage";
 import EventOverviewPage from "../EventOverviewPage/EventOverviewPage";
 import EventSetupPage from "../EventSetupPage/EventSetupPage";
 import TaskSetupPage from "../TaskSetupPage/TaskSetupPage";
+import EventDetailsPage from "../EventDetailsPage/EventDetailsPage";
 
 const log = debug("eventbunny:pages:App:App");
 
@@ -39,6 +40,7 @@ function App() {
 					element={<TaskSetupPage setTasks={setTasks} tasks={tasks} />}
 				/>
 				<Route path="/dashboard" element={<EventOverviewPage />} />
+				<Route path="/events/:eventId" element={<EventDetailsPage />} />
 			</Routes>
 		</main>
 	);
