@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-api";
 import { useParams, useNavigate } from "react-router-dom";
-import { getTasks } from "../../utilities/tasks-api";
+import { getTasks } from "../../utilities/tasks-service";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const { eventId } = useParams();
@@ -24,8 +24,7 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		data.status = data.status ? "completed" : "incomplete";
 		console.log("data: %o", data);
 		const taskData = { ...data, event: eventId };
-		console.log(taskData);
-		await addTask(taskData, eventId); //from tasks-api.js
+		await addTask(taskData, eventId);
 		setTasks([...tasks, data]);
 	};
 

@@ -5,6 +5,5 @@ export function addEvent(eventData) {
 }
 
 export function getEvent(eventId) {
-	console.log(eventId);
 	return sendRequest(`/api/events/${eventId}`, "GET");
 }

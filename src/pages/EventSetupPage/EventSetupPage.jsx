@@ -1,6 +1,6 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { useNavigate } from "react-router-dom";
-import { addEvent } from "../../utilities/events-api";
+import { addEvent } from "../../utilities/events-service";
 import { useState } from "react";
 
 export default function EventSetupPage({ userID }) {
@@ -14,7 +14,7 @@ export default function EventSetupPage({ userID }) {
 		const data = Object.fromEntries(formData);
 		console.log("data: %o", data);
 		const eventData = { ...data, host: userID };
-		const response = await addEvent(eventData); // from events-api.js
+		const response = await addEvent(eventData);
 		eventId = response._id;
 		navigate(`/events/${eventId}/tasks/new`);
 	};
