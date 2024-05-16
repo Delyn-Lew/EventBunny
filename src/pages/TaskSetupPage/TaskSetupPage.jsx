@@ -1,10 +1,20 @@
+import { useEffect } from "react";
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-api";
 import { useParams } from "react-router-dom";
+import { getTasks } from "../../utilities/tasks-api";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const { eventId } = useParams();
-	console.log(eventId);
+
+	useEffect(() => {
+		const fetchTasks = async () => {
+			const tasks = await getTasks(eventId);
+			setTasks(tasks);
+		};
+		fetchTasks();
+	}, [eventId, setTasks]);
+
 	const handleSave = async (event) => {
 		//save task into db and state
 		event.preventDefault();
