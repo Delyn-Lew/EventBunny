@@ -9,9 +9,9 @@ export default function EventNavBar({ disabled }) {
 		<nav className="eventnav">
 			<NavLink
 				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to="/events/create"
+				to={eventId ? `/events/edit/${eventId}` : "/events/create"}
 			>
-				<button type="button">EVENT SETUP</button>
+				<button type="button">Event Creation/Edit</button>
 			</NavLink>
 			<br />
 			<NavLink
@@ -19,7 +19,7 @@ export default function EventNavBar({ disabled }) {
 				to={`/events/${eventId}/tasks/new`}
 			>
 				<button disabled={disabled} type="button">
-					TASKS SETUP
+					Task Creation
 				</button>
 			</NavLink>
 		</nav>

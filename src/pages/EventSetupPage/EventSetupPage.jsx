@@ -14,25 +14,27 @@ export default function EventSetupPage({ userID }) {
 	const navigate = useNavigate();
 	const { eventId } = useParams();
 	const [event, setEvent] = useState(null);
+	const isEditPage = window.location.pathname.includes("/edit");
 
 	let evtId = "";
 
 	useEffect(() => {
 		async function fetchEventDetails() {
+			isEditPage && setDisabled(false);
 			if (eventId) {
 				const data = await getEvent(eventId);
 				setEvent(data);
 			}
 		}
 		fetchEventDetails();
-	}, [eventId]);
+	}, [eventId, isEditPage]);
 
 	const handleSave = async (event) => {
 		event.preventDefault();
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
 		log("data: %o", data);
-		if (eventId) {
+		if (isEditPage) {
 			await updateEvent(eventId, data);
 			navigate(`/events/${eventId}/tasks/edit`);
 		} else {
