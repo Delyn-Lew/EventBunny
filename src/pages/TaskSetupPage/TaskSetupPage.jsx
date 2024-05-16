@@ -42,23 +42,25 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 			<EventNavBar />
 			<p>TASKSETUP</p>
 			<form onSubmit={handleSave}>
-				<label htmlFor='name'>Task Name</label>
-				<input type='text' name='name' id='name' />
+				<label htmlFor="name">Task Name</label>
+				<input type="text" name="name" id="name" />
 				<br />
-				<label htmlFor='assignee'>Assignee</label>
-				<input type='text' name='assignee' id='assignee' />
+				<label htmlFor="assignee">Assignee</label>
+				<input type="text" name="assignee" id="assignee" />
 				<br />
-				<label htmlFor='status'>Status</label>
-				<input type='checkbox' name='status' id='status' />
-				<p style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}>(check the box if completed)</p>
+				<label htmlFor="status">Status</label>
+				<input type="checkbox" name="status" id="status" />
+				<p style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}>
+					(check the box if completed)
+				</p>
 
-				<button type='submit'>SAVE</button>
+				<button type="submit">SAVE</button>
 			</form>
 			<br />
-			<button onClick={handleSubmit}>SUBMIT EVENT</button>
+			<button onClick={handleSubmit}>PROCEED</button>
 			<div>
 				<ul>
-					{tasks.map((task) => (
+					{tasks?.map((task) => (
 						<li key={task.name}>
 							{task.name} - {task.assignee} - {task.status}
 						</li>

@@ -39,6 +39,10 @@ function App() {
 				<Route path="/dashboard" element={<EventOverviewPage />} />
 				<Route path="/events/:eventId" element={<EventDetailsPage />} />
 				<Route path="/events/edit/:eventId" element={<EventSetupPage />} />
+				<Route
+					path="/events/:eventId/tasks/edit"
+					element={<TaskSetupPage setTasks={setTasks} tasks={tasks} />}
+				/>
 			</Routes>
 		</main>
 	);
