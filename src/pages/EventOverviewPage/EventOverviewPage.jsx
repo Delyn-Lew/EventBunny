@@ -20,7 +20,7 @@ export default function EventOverviewPage() {
 			}
 		};
 		getEventsInfo();
-	});
+	}, []);
 
 	const handleJoinBtn = async (eventId) => {
 		try {
