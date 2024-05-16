@@ -1,5 +1,6 @@
 const debug = require("debug")("eventbunny:taskController");
 const Task = require("../../models/task");
+const User = require("../../models/user");
 
 const index = async (req, res) => {
 	try {
@@ -10,12 +11,16 @@ const index = async (req, res) => {
 	}
 };
 
+//* ADDED conversion from name to userId
+// TODO check status field if checkbox -> true/false or completed/incomplete
 const create = async (req, res) => {
 	try {
-		//const { name, assignee } = req.body;
-		// const task = await Task.create({ name, assignee, eventId });
+		// i have assignee in the client side, but  in 'name', need to convert'
+		const { assignee } = req.body;
+		const user = await User.find({ name: assignee });
+		debug("user %o:", user);
 		const body = req.body;
-		body.event = req.params.eventId;
+		body.delegated = user[0]._id;
 		debug("body %o:", body);
 		const task = await Task.create(body);
 		res.status(201).json(task);
@@ -24,16 +29,17 @@ const create = async (req, res) => {
 	}
 };
 
+//* ADDED conversion from name to userId
 const edit = async (req, res) => {
 	try {
-		// more efficient, but less flexibility. also need to set {new:true, runValidators:true}
-		// const task = await Task.findByIdAndUpdate(req.params.taskId, req.body);
 		const task = await Task.findById(req.params.taskId);
 		debug("task %o:", task);
-		const { name, status, delegated } = req.body;
+		const { name, status, assignee } = req.body;
+		const user = await User.find({ name: assignee });
 		task.name = name;
 		task.status = status;
-		task.delegated = delegated;
+		task.assignee = assignee;
+		task.delegated = user[0]._id;
 		await task.save();
 		res.status(200).json(task);
 	} catch (error) {

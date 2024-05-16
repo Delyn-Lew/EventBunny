@@ -19,8 +19,6 @@ app.use(require("./config/checkToken").checkTokenMiddleware);
 
 // Put API routes here, before the "catch all" route
 app.use("/api/users", require("./routes/api/usersRoutes"));
-
-//TODO setup routes for landing page.
 app.use("/api/events", require("./routes/api/eventsRoutes"));
 
 // The following "catch all" route (note the *) is necessary
