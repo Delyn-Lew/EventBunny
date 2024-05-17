@@ -1,10 +1,12 @@
 import debug from "debug";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../utilities/users-service";
+import { useState } from "react";
 
 const log = debug("eventbunny:components:LoginForm");
 
-export default function LoginForm({ setUser }) {
+export default function LoginForm({ setUser, onSignUp }) {
+	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
@@ -15,9 +17,14 @@ export default function LoginForm({ setUser }) {
 
 		log("data: %o", data);
 		const { email, password } = data;
-		const user = await login(email, password);
-		setUser(user);
-		navigate("/dashboard");
+		try {
+			const user = await login(email, password);
+			setUser(user);
+			navigate("/dashboard");
+			setError("");
+		} catch (error) {
+			setError("Login Failed - check email and password");
+		}
 	};
 
 	return (
@@ -53,8 +60,18 @@ export default function LoginForm({ setUser }) {
 				>
 					Login
 				</button>
-				<div className="flex justify-center">
-					<button className="cursor-pointer drop-shadow-md w-20 border-1 border-opacity-40 border-slate-400 text-purple-60 rounded-md hover:drop-shadow-2xl hover:bg-neutral-200 shadow-black-700 text-purple-600 text-12px text-center">
+				{error && (
+					<div className="flex justify-start">
+						{" "}
+						<p className="w-full text-red-600">{error}</p>
+					</div>
+				)}
+				<div className="flex justify-center flex-col items-center">
+					<p className="text-xs mb-1 font-semibold">New Here?⬇️</p>
+					<button
+						onClick={onSignUp}
+						className="cursor-pointer drop-shadow-md w-20 border-1 border-opacity-40 border-slate-400 text-purple-60 rounded-md hover:drop-shadow-2xl hover:bg-neutral-200 shadow-black-700 text-purple-600 text-12px text-center"
+					>
 						Sign Up
 					</button>
 				</div>
