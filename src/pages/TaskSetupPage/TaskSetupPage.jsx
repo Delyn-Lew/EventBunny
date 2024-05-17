@@ -4,7 +4,11 @@ import { addTask } from "../../utilities/tasks-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:TaskSetupPage");
 import { useParams, useNavigate } from "react-router-dom";
-import { getTasks, updateTask } from "../../utilities/tasks-service";
+import {
+	getTasks,
+	updateTask,
+	deleteTask,
+} from "../../utilities/tasks-service";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
 	const { eventId } = useParams();
@@ -46,6 +50,13 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 	const handleUpdate = async (taskId, eventId, data) => {
 		event.preventDefault();
 		await updateTask(taskId, eventId, data);
+		navigate(`/events/${eventId}/tasks/edit`);
+	};
+
+	const handleDelete = async (taskId, eventId) => {
+		event.preventDefault();
+		await deleteTask(taskId, eventId);
+		setTasks(tasks.filter((task) => task._id !== taskId));
 		navigate(`/events/${eventId}/tasks/edit`);
 	};
 
@@ -121,6 +132,12 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 									}
 								/>
 								<button type="submit">UPDATE</button>
+								<button
+									onClick={() => handleDelete(task._id, eventId)}
+									type="button"
+								>
+									DELETE
+								</button>
 							</form>
 						))}
 					</div>
