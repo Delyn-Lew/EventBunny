@@ -44,6 +44,7 @@ export default class SignUpForm extends Component {
 					<label>
 						Name:
 						<input
+							type="text"
 							name="name"
 							value={this.state.name}
 							onChange={this.handleChange}
@@ -54,6 +55,7 @@ export default class SignUpForm extends Component {
 					<label>
 						Email:
 						<input
+							type="email"
 							name="email"
 							value={this.state.email}
 							onChange={this.handleChange}
@@ -64,6 +66,7 @@ export default class SignUpForm extends Component {
 					<label>
 						Password:
 						<input
+							type="password"
 							name="password"
 							value={this.state.password}
 							onChange={this.handleChange}
@@ -74,6 +77,7 @@ export default class SignUpForm extends Component {
 					<label>
 						Confirm:
 						<input
+							type="password"
 							name="confirm"
 							value={this.state.confirm}
 							onChange={this.handleChange}
@@ -81,7 +85,10 @@ export default class SignUpForm extends Component {
 					</label>
 					<br />
 
-					<button className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 border-teal-800">
+					<button
+						type="submit"
+						className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 border-teal-800"
+					>
 						Sign Up
 					</button>
 					<p>{this.state.error} </p>
