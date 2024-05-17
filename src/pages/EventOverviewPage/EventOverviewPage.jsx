@@ -40,7 +40,7 @@ export default function EventOverviewPage() {
     }
   };
   const handleClickRow = (eventId) => {
-    navigate(`/event/${eventId}`);
+    navigate(`/events/${eventId}`);
   };
 
   const handleCheckToken = async () => {
