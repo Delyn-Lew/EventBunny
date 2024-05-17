@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import debug from "debug";
-import { checkToken } from "../../utilities/users-service";
+import { checkToken, getUser } from "../../utilities/users-service";
 import { useEffect, useState } from "react";
 import { fetchEventsInfo } from "../../utilities/events-api";
 import sendRequest from "../../utilities/send-request";
@@ -23,12 +23,23 @@ export default function EventOverviewPage() {
     getEventsInfo();
   }, []);
 
-  const handleJoinBtn = async (eventId, event) => {
-    event.stopPropagation();
+  const handleJoinBtn = async (eventId, e) => {
+    e.stopPropagation();
+    // console.log("Joining event with ID:", eventId);
+    // const url = `/api/events/${eventId}/join`;
+    // console.log("Request URL:", url);
+    const user = getUser();
+    if (!user) {
+      console.log("user not log in");
+      return;
+    }
     try {
+      const userId = user._id;
+      console.log(`Joining event with ID: ${eventId}`);
       const updateEvent = await sendRequest(
         `/api/events/${eventId}/join`,
-        "POST"
+        "POST",
+        { userId }
       );
       setEvents(
         events.map((event) =>
@@ -85,7 +96,7 @@ export default function EventOverviewPage() {
                 <td>
                   <button
                     className="join-btn"
-                    onClick={(event) => handleJoinBtn(event._id, event)}
+                    onClick={(e) => handleJoinBtn(event._id, e)}
                   >
                     Join
                   </button>
