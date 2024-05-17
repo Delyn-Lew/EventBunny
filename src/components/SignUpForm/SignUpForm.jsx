@@ -43,29 +43,47 @@ export default class SignUpForm extends Component {
 
 					<label>
 						Name:
-						<input name='name' value={this.state.name} onChange={this.handleChange} />
+						<input
+							name="name"
+							value={this.state.name}
+							onChange={this.handleChange}
+						/>
 					</label>
 					<br />
 
 					<label>
 						Email:
-						<input name='email' value={this.state.email} onChange={this.handleChange} />
+						<input
+							name="email"
+							value={this.state.email}
+							onChange={this.handleChange}
+						/>
 					</label>
 					<br />
 
 					<label>
 						Password:
-						<input name='password' value={this.state.password} onChange={this.handleChange} />
+						<input
+							name="password"
+							value={this.state.password}
+							onChange={this.handleChange}
+						/>
 					</label>
 					<br />
 
 					<label>
 						Confirm:
-						<input name='confirm' value={this.state.confirm} onChange={this.handleChange} />
+						<input
+							name="confirm"
+							value={this.state.confirm}
+							onChange={this.handleChange}
+						/>
 					</label>
 					<br />
 
-					<button>Sign Up</button>
+					<button className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2 border-teal-800">
+						Sign Up
+					</button>
 					<p>{this.state.error} </p>
 				</fieldset>
 			</form>
