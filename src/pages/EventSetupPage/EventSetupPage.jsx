@@ -13,7 +13,7 @@ export default function EventSetupPage({ userID }) {
 	const [disabled, setDisabled] = useState(true);
 	const navigate = useNavigate();
 	const { eventId } = useParams();
-	const [event, setEvent] = useState(null);
+	const [event, setEvent] = useState("");
 	const isEditPage = window.location.pathname.includes("/edit");
 
 	let evtId = "";
@@ -23,11 +23,14 @@ export default function EventSetupPage({ userID }) {
 			isEditPage && setDisabled(false);
 			if (eventId) {
 				const data = await getEvent(eventId);
+				data.date = new Date(data.date).toISOString().slice(0, 16);
 				setEvent(data);
 			}
 		}
 		fetchEventDetails();
 	}, [eventId, isEditPage]);
+
+	console.log(event);
 
 	const handleSave = async (event) => {
 		event.preventDefault();
@@ -60,7 +63,7 @@ export default function EventSetupPage({ userID }) {
 					type="text"
 					name="name"
 					id="name"
-					value={event?.name}
+					value={event?.name || ""}
 					onChange={(evt) => setEvent({ ...event, name: evt.target.value })}
 				/>
 				<br />
@@ -69,7 +72,7 @@ export default function EventSetupPage({ userID }) {
 					type="text"
 					name="description"
 					id="description"
-					value={event?.description}
+					value={event?.description || ""}
 					onChange={(evt) =>
 						setEvent({ ...event, description: evt.target.value })
 					}
@@ -80,7 +83,7 @@ export default function EventSetupPage({ userID }) {
 					type="datetime-local"
 					name="date"
 					id="date"
-					value={event?.date}
+					value={event?.date || ""}
 					onChange={(evt) => setEvent({ ...event, date: evt.target.value })}
 				/>
 				<br />
@@ -89,7 +92,7 @@ export default function EventSetupPage({ userID }) {
 					type="text"
 					name="location"
 					id="location"
-					value={event?.location}
+					value={event?.location || ""}
 					onChange={(evt) => setEvent({ ...event, location: evt.target.value })}
 				/>
 				<br />
