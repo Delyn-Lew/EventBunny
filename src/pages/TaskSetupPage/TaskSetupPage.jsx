@@ -44,8 +44,8 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
-		data.status = data.status ? "completed" : "incomplete";
 		log("data: %o", data);
+		// data.status = data.status ? "completed" : "incomplete"; // this was causing taks to be default completed. removed.
 		const taskData = { ...data, event: eventId };
 		log("taskdata: %o", taskData);
 		await addTask(taskData, eventId);

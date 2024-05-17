@@ -53,8 +53,6 @@ export default function EventSetupPage({ userID, setUser }) {
 	};
 
 	const handleDelete = async (eventId) => {
-		// event.preventDefault();
-
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -62,9 +60,7 @@ export default function EventSetupPage({ userID, setUser }) {
 			setUser(null);
 			return;
 		}
-		//TODO validate if event is hosted by user, IF TRUE, then show delete button.
 		await deleteEvent(eventId);
-		// setEvent(events.filter((event) => event._id !== eventId));
 		navigate(`/dashboard`); //should change to MyEvents Page.
 	};
 
@@ -89,9 +85,6 @@ export default function EventSetupPage({ userID, setUser }) {
 				{eventId ? <button type='submit'>UPDATE</button> : <button type='submit'>SAVE</button>}
 				<button onClick={() => handleDelete(eventId)} type='button'>
 					DELETE EVENT
-				</button>
-				<button onClick={() => log(event.host._id)} type='button'>
-					LOG
 				</button>
 			</form>
 			<br />

@@ -41,7 +41,7 @@ export default function EventDetailsPage() {
 						Edit Event
 					</button>
 				) : (
-					<p>This is not your event to Edit, look for {event.host.name}</p>
+					<p>This is not your event to Edit, look for {event.host?.name}</p>
 				)}
 				<p>{event.description}</p>
 				<p>DATE: {localDate}</p>
