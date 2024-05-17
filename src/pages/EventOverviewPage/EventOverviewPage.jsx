@@ -9,12 +9,15 @@ const log = debug("eventbunny:pages:EventOverviewPage");
 
 export default function EventOverviewPage() {
   const [events, setEvents] = useState([]);
+  // const [eventsUser, setEventsUser] = useState([]);
   const navigate = useNavigate();
+  const user = getUser();
 
   useEffect(() => {
     const getEventsInfo = async () => {
       try {
         const data = await fetchEventsInfo();
+        log("Fetched event data: %o", data);
         setEvents(data);
       } catch (error) {
         console.log("error fetching events", error);
@@ -28,7 +31,6 @@ export default function EventOverviewPage() {
     // console.log("Joining event with ID:", eventId);
     // const url = `/api/events/${eventId}/join`;
     // console.log("Request URL:", url);
-    const user = getUser();
     if (!user) {
       console.log("user not log in");
       return;
@@ -41,8 +43,8 @@ export default function EventOverviewPage() {
         "POST",
         { userId }
       );
-      setEvents(
-        events.map((event) =>
+      setEvents((prevEvents) =>
+        prevEvents.map((event) =>
           event._id === updateEvent._id ? updateEvent : event
         )
       );
@@ -50,6 +52,7 @@ export default function EventOverviewPage() {
       console.log("Error joining event", error);
     }
   };
+
   const handleClickRow = (eventId) => {
     navigate(`/events/${eventId}`);
   };
@@ -85,24 +88,28 @@ export default function EventOverviewPage() {
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
-              <tr key={event._id} onClick={() => handleClickRow(event._id)}>
-                <td>{event.name}</td>
-                <td>{event.description}</td>
-                <td>{event.location}</td>
-                <td>{new Date(event.date).toLocaleDateString()}</td>
-                <td>{new Date(event.date).toLocaleTimeString()}</td>
-                <td>{event.host.name}</td>
-                <td>
-                  <button
-                    className="join-btn"
-                    onClick={(e) => handleJoinBtn(event._id, e)}
-                  >
-                    Join
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {events.map((event) => {
+              const isAttending =
+                user && event.attendees && event.attendees.includes(user._id);
+              return (
+                <tr key={event._id} onClick={() => handleClickRow(event._id)}>
+                  <td>{event.name}</td>
+                  <td>{event.description}</td>
+                  <td>{event.location}</td>
+                  <td>{new Date(event.date).toLocaleDateString()}</td>
+                  <td>{new Date(event.date).toLocaleTimeString()}</td>
+                  <td>{event.host?.name}</td>
+                  <td>
+                    <button
+                      className="join-btn"
+                      onClick={(e) => handleJoinBtn(event._id, e)}
+                    >
+                      {isAttending ? "Leave" : "Join"}
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}
