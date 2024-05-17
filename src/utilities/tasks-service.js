@@ -9,6 +9,9 @@ export const getTasks = async (eventId) => {
 };
 
 export const updateTask = async (taskId, eventId, data) => {
-	console.log(taskId, eventId, data);
 	return await tasksAPI.updateTask(taskId, eventId, data);
+};
+
+export const deleteTask = async (taskId, eventId) => {
+	return await tasksAPI.deleteTask(taskId, eventId);
 };
