@@ -1,6 +1,6 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { addEvent, getEvent, updateEvent } from "../../utilities/events-service";
+import { addEvent, getEvent, updateEvent, deleteEvent } from "../../utilities/events-service";
 import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
@@ -52,6 +52,22 @@ export default function EventSetupPage({ userID, setUser }) {
 		}
 	};
 
+	const handleDelete = async (eventId) => {
+		// event.preventDefault();
+
+		const user = getUser();
+		if (!user) {
+			log("user not logged in");
+			navigate("/");
+			setUser(null);
+			return;
+		}
+		//TODO validate if event is hosted by user, IF TRUE, then show delete button.
+		await deleteEvent(eventId);
+		// setEvent(events.filter((event) => event._id !== eventId));
+		navigate(`/dashboard`); //should change to MyEvents Page.
+	};
+
 	return (
 		<div>
 			<br />
@@ -71,6 +87,12 @@ export default function EventSetupPage({ userID, setUser }) {
 				<input type='text' name='location' id='location' value={event?.location || ""} onChange={(evt) => setEvent({ ...event, location: evt.target.value })} />
 				<br />
 				{eventId ? <button type='submit'>UPDATE</button> : <button type='submit'>SAVE</button>}
+				<button onClick={() => handleDelete(eventId)} type='button'>
+					DELETE EVENT
+				</button>
+				<button onClick={() => log(event.host._id)} type='button'>
+					LOG
+				</button>
 			</form>
 			<br />
 		</div>

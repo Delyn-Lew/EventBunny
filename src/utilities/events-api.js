@@ -17,3 +17,7 @@ export function getEvent(eventId) {
 export function updateEvent(eventId, eventData) {
 	return sendRequest(`${EVENTS_URL}/${eventId}`, "PUT", eventData);
 }
+
+export function deleteEvent(eventId) {
+	return sendRequest(`${EVENTS_URL}/${eventId}`, "DELETE");
+}

@@ -65,7 +65,16 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 	//TODO do we need event.preventDefault()? it is not called here; and not within a form.
 	const handleUpdate = async (taskId, eventId, data) => {
 		// event.preventDefault();
-		console.log("update", taskId, eventId, data);
+
+		const user = getUser();
+		if (!user) {
+			log("user not logged in");
+			navigate("/");
+			setUser(null);
+			return;
+		}
+
+		log("update", taskId, eventId, data);
 		await updateTask(taskId, eventId, data);
 		navigate(`/events/${eventId}/tasks/edit`);
 	};
@@ -73,6 +82,15 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 	//TODO do we need event.preventDefault()? it is not called here; and not within a form.
 	const handleDelete = async (taskId, eventId) => {
 		// event.preventDefault();
+
+		const user = getUser();
+		if (!user) {
+			log("user not logged in");
+			navigate("/");
+			setUser(null);
+			return;
+		}
+
 		await deleteTask(taskId, eventId);
 		setTasks(tasks.filter((task) => task._id !== taskId));
 		navigate(`/events/${eventId}/tasks/edit`);

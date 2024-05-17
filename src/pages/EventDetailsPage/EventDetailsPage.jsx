@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEvent } from "../../utilities/events-api";
 import { getTasks } from "../../utilities/tasks-api";
-// import { getUser } from "../../utilities/users-service";
+import { getUser } from "../../utilities/users-service";
+import debug from "debug";
+const log = debug("eventbunny:pages:EventDetailsPage");
 
-export default function EventDetailsPage(/*{setUser}*/) {
+export default function EventDetailsPage() {
 	const [event, setEvent] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const { eventId } = useParams();
+	const user = getUser();
+	log(user._id);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -25,24 +29,20 @@ export default function EventDetailsPage(/*{setUser}*/) {
 
 	const localDate = new Date(event.date).toLocaleString();
 
-	// const user = getUser();
-	// 	if (!user) {
-	// 		log("user not logged in");
-	// 		navigate("/");
-	// 		setUser(null);
-	// 		return;
-	// 	}
-
 	return (
 		<>
 			<h1>{event.name}</h1>
 			<section>
-				<button
-					onClick={() => {
-						navigate(`/events/edit/${eventId}`);
-					}}>
-					Edit Event
-				</button>
+				{event.host?._id === user?._id ? (
+					<button
+						onClick={() => {
+							navigate(`/events/edit/${eventId}`);
+						}}>
+						Edit Event
+					</button>
+				) : (
+					<p>This is not your event to Edit, look for {event.host.name}</p>
+				)}
 				<p>{event.description}</p>
 				<p>DATE: {localDate}</p>
 				<p>LOCATION: {event.location}</p>
