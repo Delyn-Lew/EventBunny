@@ -53,3 +53,7 @@ export const checkToken = async () => {
 	const dateStr = await usersAPI.checkToken();
 	return new Date(dateStr);
 };
+
+export const getUsers = async () => {
+	return await usersAPI.getUsers();
+};

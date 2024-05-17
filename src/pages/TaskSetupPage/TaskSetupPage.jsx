@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-service";
 import debug from "debug";
@@ -9,8 +9,10 @@ import {
 	updateTask,
 	deleteTask,
 } from "../../utilities/tasks-service";
+import { getUsers } from "../../utilities/users-service";
 
 export default function TaskSetupPage({ setTasks, tasks }) {
+	const [users, setUsers] = useState([]);
 	const { eventId } = useParams();
 	log("eventId %s:", eventId);
 	const navigate = useNavigate();
@@ -23,6 +25,14 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 		};
 		fetchTasks();
 	}, [eventId, setTasks]);
+
+	useEffect(() => {
+		const fetchUsers = async () => {
+			const users = await getUsers();
+			setUsers(users);
+		};
+		fetchUsers();
+	}, [setUsers]);
 
 	const handleSave = async (event) => {
 		//save task into db and state
@@ -49,6 +59,7 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 
 	const handleUpdate = async (taskId, eventId, data) => {
 		event.preventDefault();
+		console.log("update", taskId, eventId, data);
 		await updateTask(taskId, eventId, data);
 		navigate(`/events/${eventId}/tasks/edit`);
 	};
@@ -71,7 +82,13 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 					<input type="text" name="name" id="name" />
 					<br />
 					<label htmlFor="assignee">Assignee</label>
-					<input type="text" name="assignee" id="assignee" />
+					<select name="assignee" id="assignee">
+						{users?.map((user) => (
+							<option value={user.name} key={user._id}>
+								{user.name}
+							</option>
+						))}
+					</select>
 					<br />
 					<label htmlFor="status">Status</label>
 					<input type="checkbox" name="status" id="status" />
@@ -103,12 +120,17 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 									onChange={handleChange("name", idx)}
 								/>
 								<label htmlFor="assignee">Assignee</label>
-								<input
-									type="text"
-									name="assignee"
-									value={task?.assignee}
+								<select
 									onChange={handleChange("assignee", idx)}
-								/>
+									name="assignee"
+									id="assignee"
+								>
+									{users?.map((user) => (
+										<option value={user.name} key={user._id}>
+											{user.name}
+										</option>
+									))}
+								</select>
 								<label htmlFor="status">Status</label>
 								<input
 									type="checkbox"
