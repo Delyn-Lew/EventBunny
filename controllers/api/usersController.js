@@ -2,7 +2,7 @@ const debug = require("debug")("eventbunny:controllers:api:usersController");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../../models/user");
-const { getUser } = require("../../config/checkToken");
+// const { getUser } = require("../../config/checkToken");
 
 const createJWT = (user) => jwt.sign({ user }, process.env.SECRET, { expiresIn: "20m" });
 
@@ -40,12 +40,11 @@ const login = async (req, res) => {
 	}
 };
 
-const checkToken = (req, res) => {
-	const user = getUser(req, res); //res.locals.user;
-	res.json({ user });
-};
+// const checkToken = (req, res) => {
+// 	const user = getUser(req, res); //res.locals.user;
+// 	res.json({ user });
+// };
 
-// TODO test for index ALL users
 const index = async (req, res) => {
 	const users = await User.find();
 	debug("users %o:", users);
@@ -55,6 +54,6 @@ const index = async (req, res) => {
 module.exports = {
 	create,
 	login,
-	checkToken,
+	// checkToken,
 	index,
 };

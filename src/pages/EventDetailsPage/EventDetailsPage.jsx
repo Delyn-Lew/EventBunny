@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEvent } from "../../utilities/events-api";
 import { getTasks } from "../../utilities/tasks-api";
+// import { getUser } from "../../utilities/users-service";
 
-export default function EventDetailsPage() {
+export default function EventDetailsPage(/*{setUser}*/) {
 	const [event, setEvent] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const { eventId } = useParams();
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		async function fetchEvent() {
 			const event = await getEvent(eventId);
@@ -23,6 +25,14 @@ export default function EventDetailsPage() {
 
 	const localDate = new Date(event.date).toLocaleString();
 
+	// const user = getUser();
+	// 	if (!user) {
+	// 		log("user not logged in");
+	// 		navigate("/");
+	// 		setUser(null);
+	// 		return;
+	// 	}
+
 	return (
 		<>
 			<h1>{event.name}</h1>
@@ -30,8 +40,7 @@ export default function EventDetailsPage() {
 				<button
 					onClick={() => {
 						navigate(`/events/edit/${eventId}`);
-					}}
-				>
+					}}>
 					Edit Event
 				</button>
 				<p>{event.description}</p>
