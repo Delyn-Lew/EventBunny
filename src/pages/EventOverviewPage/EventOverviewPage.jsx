@@ -75,7 +75,7 @@ export default function EventOverviewPage() {
           </thead>
           <tbody>
             {events.map((event) => (
-              <tr key={event.id} onClick={() => handleClickRow(event._id)}>
+              <tr key={event._id} onClick={() => handleClickRow(event._id)}>
                 <td>{event.name}</td>
                 <td>{event.description}</td>
                 <td>{event.location}</td>
@@ -85,7 +85,7 @@ export default function EventOverviewPage() {
                 <td>
                   <button
                     className="join-btn"
-                    onClick={() => handleJoinBtn(event._id)}
+                    onClick={(event) => handleJoinBtn(event._id, event)}
                   >
                     Join
                   </button>
