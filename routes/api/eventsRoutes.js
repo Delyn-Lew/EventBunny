@@ -12,13 +12,12 @@ const tasksCtrl = require("../../controllers/api/tasksController");
 //EVENTS
 router.get("/", eventsCtrl.index);
 router.post("/", eventsCtrl.create);
+//getting all the user's events. // the user routes needs to be on top all the routes with params
+router.get("/user", eventsCtrl.userIndex);
 router.get("/:eventId", eventsCtrl.getOne);
 router.put("/:eventId", eventsCtrl.edit);
-//getting all the user's events
 router.delete("/:eventId", eventsCtrl.deleteOne);
 router.post("/:eventId/join", eventsCtrl.join);
-//should the route just be /:eventId/edit or ???? without /edit
-router.get("/user", eventsCtrl.userIndex);
 
 //TASKS
 //TODO UPDATE/DELETE for events & tasks, need taskID for task
