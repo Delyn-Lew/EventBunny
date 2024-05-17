@@ -91,7 +91,10 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 					</select>
 					<br />
 					<label htmlFor="status">Status</label>
-					<input type="checkbox" name="status" id="status" />
+					<select name="status" id="status">
+						<option value="incomplete">incomplete</option>
+						<option value="completed">completed</option>
+					</select>
 					<p
 						style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}
 					>
@@ -132,27 +135,15 @@ export default function TaskSetupPage({ setTasks, tasks }) {
 									))}
 								</select>
 								<label htmlFor="status">Status</label>
-								<input
-									type="checkbox"
+								<select
+									onChange={handleChange("status", idx)}
 									name="status"
-									value={task?.status}
-									checked={task?.status === "completed"}
-									onChange={() =>
-										setTasks(
-											tasks.map((item, index) =>
-												index === idx
-													? {
-															...item,
-															status:
-																item.status === "completed"
-																	? "incomplete"
-																	: "completed",
-														}
-													: item
-											)
-										)
-									}
-								/>
+									id="status"
+									value={task.status}
+								>
+									<option value="incomplete">incomplete</option>
+									<option value="completed">completed</option>
+								</select>
 								<button type="submit">UPDATE</button>
 								<button
 									onClick={() => handleDelete(task._id, eventId)}
