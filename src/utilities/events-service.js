@@ -23,3 +23,7 @@ export const fetchHostingEvents = async () => {
 export const fetchAttendingEvents = async () => {
   return await eventsAPI.fetchAttendingEvents();
 };
+
+export const deleteEvent = async (eventId) => {
+	return await eventsAPI.deleteEvent(eventId);
+};
