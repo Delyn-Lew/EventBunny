@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../../models/user");
 // const { getUser } = require("../../config/checkToken");
 
-const createJWT = (user) => jwt.sign({ user }, process.env.SECRET, { expiresIn: "10s" });
+const createJWT = (user) => jwt.sign({ user }, process.env.SECRET, { expiresIn: "20m" });
 
 const create = async (req, res) => {
 	debug("body: %o", req.body);

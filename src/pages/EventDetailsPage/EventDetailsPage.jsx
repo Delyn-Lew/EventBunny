@@ -6,7 +6,7 @@ import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:EventDetailsPage");
 
-export default function EventDetailsPage() {
+export default function EventDetailsPage({ admin }) {
 	const [event, setEvent] = useState({});
 	const [tasks, setTasks] = useState([]);
 	const { eventId } = useParams();
@@ -33,7 +33,7 @@ export default function EventDetailsPage() {
 		<>
 			<h1>{event.name}</h1>
 			<section>
-				{event.host?._id === user?._id ? (
+				{event.host?._id === user?._id || admin ? (
 					<button
 						onClick={() => {
 							navigate(`/events/edit/${eventId}`);

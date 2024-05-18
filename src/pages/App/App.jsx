@@ -12,12 +12,17 @@ import UserTimeout from "../../components/UserTimeout/UserTimeout";
 import "../../index.css";
 
 const log = debug("eventbunny:pages:App:App");
+const adminId = "6648af5a0faf91beeab53496"; //move this to .env file
 
 function App() {
 	const [user, setUser] = useState(getUser());
 	const [tasks, setTasks] = useState([]);
 	const [showTimeout, setShowTimeout] = useState(false);
+	//eslint-disable-next-line no-unused-vars
+	const [admin, setAdmin] = useState(user?._id === adminId);
+
 	log("user %o", user);
+	log("admin %s", admin);
 
 	if (!user) {
 		return (
@@ -52,7 +57,7 @@ function App() {
 									<Route path='/dashboard' element={<EventOverviewPage setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/create' element={<EventSetupPage userID={user["_id"]} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/edit/:eventId' element={<EventSetupPage setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
-									<Route path='/events/:eventId' element={<EventDetailsPage setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
+									<Route path='/events/:eventId' element={<EventDetailsPage admin={admin} setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId/tasks/new' element={<TaskSetupPage setTasks={setTasks} tasks={tasks} setUser={setUser} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId/tasks/edit' element={<TaskSetupPage setTasks={setTasks} tasks={tasks} setUser={setUser} setShowTimeout={setShowTimeout} />} />
 								</Routes>
