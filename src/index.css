@@ -4,7 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
-html {
+* {
 	font-family: "Quicksand", sans-serif;
 }
 
@@ -13,4 +13,8 @@ body {
 	width: 100vw;
 	margin: 0;
 	background-color: rgb(244, 239, 255);
+}
+
+a {
+	text-decoration: none;
 }

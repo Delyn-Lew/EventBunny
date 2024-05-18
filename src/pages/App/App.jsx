@@ -1,6 +1,6 @@
 import debug from "debug";
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
@@ -14,8 +14,15 @@ const log = debug("eventbunny:pages:App:App");
 
 function App() {
 	const [user, setUser] = useState(getUser());
-	const [tasks, setTasks] = useState([]); // need to pass in getTasks for state
+	const [tasks, setTasks] = useState([]);
+	const navigate = useNavigate();
 	log("user %o", user);
+
+	useEffect(() => {
+		if (!user) {
+			navigate("/auth");
+		}
+	}, [user, navigate]);
 
 	if (!user) {
 		return (
@@ -27,8 +34,10 @@ function App() {
 
 	return (
 		<main className="App">
-			<NavBar setUser={setUser} />
+			<NavBar setUser={setUser} user={user} />
 			<Routes>
+				<Route index element={<Navigate to="/auth" replace />} />
+				<Route path="/auth" element={<AuthPage setUser={setUser} />} />
 				<Route
 					path="/events/create"
 					element={<EventSetupPage userID={user["_id"]} />}
