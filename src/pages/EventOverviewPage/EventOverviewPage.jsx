@@ -6,10 +6,11 @@ import sendRequest from "../../utilities/send-request";
 import debug from "debug";
 const log = debug("eventbunny:pages:EventOverviewPage");
 
-export default function EventOverviewPage({ setUser }) {
+export default function EventOverviewPage({ setShowTimeout }) {
 	const [events, setEvents] = useState([]);
 	const navigate = useNavigate();
 	const user = getUser();
+	log("user %o:", user);
 
 	useEffect(() => {
 		const getEventsInfo = async () => {
@@ -18,7 +19,7 @@ export default function EventOverviewPage({ setUser }) {
 				log("Fetched event data: %o", data);
 				setEvents(data);
 			} catch (error) {
-				console.log("error fetching events", error);
+				log("error fetching events", error);
 			}
 		};
 		getEventsInfo();
@@ -26,11 +27,11 @@ export default function EventOverviewPage({ setUser }) {
 
 	const handleJoinBtn = async (eventId, e) => {
 		e.stopPropagation();
-
-		if (!user) {
+		const currentUser = getUser();
+		log("currentuser %o:", currentUser);
+		if (!currentUser) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
 			return;
 		}
 		try {

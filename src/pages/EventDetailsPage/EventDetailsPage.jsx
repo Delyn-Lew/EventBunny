@@ -11,7 +11,7 @@ export default function EventDetailsPage() {
 	const [tasks, setTasks] = useState([]);
 	const { eventId } = useParams();
 	const user = getUser();
-	log(user._id);
+	log("user_id", user?._id);
 	const navigate = useNavigate();
 
 	useEffect(() => {

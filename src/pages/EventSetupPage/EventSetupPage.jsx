@@ -6,7 +6,7 @@ import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:EventSetupPage");
 
-export default function EventSetupPage({ userID, setUser }) {
+export default function EventSetupPage({ userID, setShowTimeout }) {
 	const [disabled, setDisabled] = useState(true);
 	const navigate = useNavigate();
 	const { eventId } = useParams();
@@ -29,12 +29,11 @@ export default function EventSetupPage({ userID, setUser }) {
 
 	const handleSave = async (event) => {
 		event.preventDefault();
-
+		//to do check before allowing any fetch req to proceed.
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
 			return;
 		}
 
@@ -56,8 +55,7 @@ export default function EventSetupPage({ userID, setUser }) {
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
 			return;
 		}
 		await deleteEvent(eventId);
