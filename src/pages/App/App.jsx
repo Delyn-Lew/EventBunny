@@ -36,7 +36,7 @@ function App() {
 	return (
 		<main className='App'>
 			<Routes>
-				{/* <Route path='/' element={<AuthPage setUser={setUser} />} /> */}
+				<Route path='/' element={<AuthPage setUser={setUser} />} />
 				<Route index element={<Navigate to='/auth' replace />} />
 				<Route path='/auth' element={<AuthPage setUser={setUser} />} />
 
