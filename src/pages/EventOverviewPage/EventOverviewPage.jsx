@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchEventsInfo } from "../../utilities/events-api";
 import sendRequest from "../../utilities/send-request";
 import debug from "debug";
+
 const log = debug("eventbunny:pages:EventOverviewPage");
 
 export default function EventOverviewPage({ setUser }) {
