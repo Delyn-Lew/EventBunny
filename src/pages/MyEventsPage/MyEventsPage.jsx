@@ -6,24 +6,27 @@ import { fetchUserEventsInfo } from "../../utilities/events-api";
 export default function MyEventsPage() {
   const [hostedEvents, setHostedEvents] = useState([]);
   const [attendingEvents, setAttendingEvents] = useState([]);
+  const [isFetched, setIsFetched] = useState(false);
   const navigate = useNavigate();
   const user = getUser();
 
   useEffect(() => {
     const getEvents = async () => {
-      if (!user) return;
+      if (!user || isFetched) return;
 
       try {
-        const events = await fetchUserEventsInfo();
+        console.log("Fetching events for user:", user._id);
+        const events = await fetchUserEventsInfo(user._id);
+        console.log("Fetched events:", events);
         setHostedEvents(events.eventsHosted);
         setAttendingEvents(events.eventsAttending);
+        setIsFetched(true);
       } catch (error) {
         console.error("Error fetching user events", error);
       }
     };
-
     getEvents();
-  }, [user]);
+  }, [user, isFetched]);
 
   const handleClickEvent = (eventId) => {
     navigate(`/events/${eventId}`);

@@ -69,9 +69,16 @@ const deleteOne = async (req, res) => {
 
 const userIndex = async (req, res) => {
   try {
-    const { userId } = req.body;
-    const eventsHosted = await Event.find({ host: userId });
-    const eventsAttending = await Event.find({ attendees: userId });
+    const userId = req.query.userId;
+    console.log("Receive userId", userId);
+    const eventsHosted = await Event.find({ host: userId }).populate(
+      "host attendees"
+    );
+
+    const eventsAttending = await Event.find({ attendees: userId }).populate(
+      "host attendees"
+    );
+
     const events = { eventsHosted, eventsAttending };
     debug("events %o:", events);
     res.status(200).json(events);
@@ -93,13 +100,11 @@ const join = async (req, res) => {
     const isAttendee = event.attendees.includes(userId);
 
     if (isAttendee) {
-      // Remove user from attendees
       event.attendees = event.attendees.filter(
         (attendee) => attendee.toString() !== userId
       );
       debug(`User ${userId} left the event ${eventId}`);
     } else {
-      // Add user to attendees
       event.attendees.push(userId);
       debug(`User ${userId} joined the event ${eventId}`);
     }
