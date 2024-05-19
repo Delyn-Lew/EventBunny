@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchEventsInfo } from "../../utilities/events-api";
 import sendRequest from "../../utilities/send-request";
 import debug from "debug";
+
 const log = debug("eventbunny:pages:EventOverviewPage");
 
 export default function EventOverviewPage({ setShowTimeout }) {
@@ -27,6 +28,7 @@ export default function EventOverviewPage({ setShowTimeout }) {
 
 	const handleJoinBtn = async (eventId, e) => {
 		e.stopPropagation();
+
 		const currentUser = getUser();
 		log("currentuser %o:", currentUser);
 		if (!currentUser) {
@@ -34,20 +36,39 @@ export default function EventOverviewPage({ setShowTimeout }) {
 			setShowTimeout(true);
 			return;
 		}
+
 		try {
 			const userId = user._id;
-			log("user %o:", user);
+			log("User %o", user);
 			log(`Joining event with ID: ${eventId}`);
+
+			if (user._id === events.find((event) => event._id === eventId)?.host?._id) {
+				log("Host cannot join their own event");
+				return;
+			}
+
 			const updateEvent = await sendRequest(`/api/events/${eventId}/join`, "POST", { userId });
+			log("Updated event after join: %o", updateEvent);
 			setEvents((prevEvents) => prevEvents.map((event) => (event._id === updateEvent._id ? updateEvent : event)));
-			log("success");
+			//TODO solve this --> use state instead of localstorage, then to change true/false for each event during the mapping of join/leave button.
+			localStorage.setItem(`attendance-${eventId}`, JSON.stringify(updateEvent.attendees.includes(userId)));
+			log("Event joined successfully");
 		} catch (error) {
 			log("Error joining event", error);
 		}
 	};
+
 	const handleClickRow = (eventId) => {
 		navigate(`/events/${eventId}`);
 	};
+
+	const isUserAttending = (event) => {
+		return user && event.attendees && event.attendees.includes(user._id);
+	};
+
+	useEffect(() => {
+		log("Events state on render: %o", events);
+	}, [events]);
 
 	return (
 		<>
@@ -73,9 +94,10 @@ export default function EventOverviewPage({ setShowTimeout }) {
 					</thead>
 					<tbody>
 						{events.map((event) => {
-							const isAttending = user && event.attendees && event.attendees.includes(user._id);
+							const isAttending = isUserAttending(event);
+							log("Rendering event: %o, isAttending: %o", event, isAttending);
 							return (
-								<tr key={event._id} onClick={() => handleClickRow(event._id)}>
+								<tr key={event._id} onClick={() => handleClickRow(event._id)} style={{ cursor: "pointer" }}>
 									<td>{event.name}</td>
 									<td>{event.description}</td>
 									<td>{event.location}</td>
@@ -83,8 +105,8 @@ export default function EventOverviewPage({ setShowTimeout }) {
 									<td>{new Date(event.date).toLocaleTimeString()}</td>
 									<td>{event.host?.name}</td>
 									<td>
-										<button className='join-btn' onClick={(e) => handleJoinBtn(event._id, e)}>
-											{isAttending ? "Leave" : "Join"}
+										<button className='join-btn' onClick={(e) => handleJoinBtn(event._id, e)} disabled={user && event.host && user._id === event.host._id}>
+											{isAttending || localStorage.getItem(`attendance-${event._id}`) === "true" ? "Leave" : "Join"}
 										</button>
 									</td>
 								</tr>

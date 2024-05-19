@@ -10,6 +10,7 @@ import TaskSetupPage from "../TaskSetupPage/TaskSetupPage";
 import EventDetailsPage from "../EventDetailsPage/EventDetailsPage";
 import UserTimeout from "../../components/UserTimeout/UserTimeout";
 import "../../index.css";
+import MyEventsPage from "../MyEventsPage/MyEventsPage";
 
 const log = debug("eventbunny:pages:App:App");
 const adminId = "6648af5a0faf91beeab53496"; //move this to .env file
@@ -24,13 +25,13 @@ function App() {
 	log("user %o", user);
 	log("admin %s", admin);
 
-	if (!user) {
-		return (
-			<main className='App'>
-				<AuthPage setUser={setUser} />
-			</main>
-		);
-	}
+  if (!user) {
+    return (
+      <main className="App">
+        <AuthPage setUser={setUser} />
+      </main>
+    );
+  }
 
 	return (
 		<main className='App'>
@@ -55,6 +56,7 @@ function App() {
 								{user && <NavBar user={user} setUser={setUser} />}
 								<Routes>
 									<Route path='/dashboard' element={<EventOverviewPage setShowTimeout={setShowTimeout} />} />
+									<Route path="/user" element={<MyEventsPage />} />
 									<Route path='/events/create' element={<EventSetupPage userID={user["_id"]} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/edit/:eventId' element={<EventSetupPage setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId' element={<EventDetailsPage admin={admin} setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
