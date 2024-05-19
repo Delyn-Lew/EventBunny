@@ -19,7 +19,7 @@ export default function EventOverviewPage({ setUser }) {
         log("Fetched event data: %o", data);
         setEvents(data);
       } catch (error) {
-        console.log("error fetching events", error);
+        console.error("Error fetching events", error);
       }
     };
     getEventsInfo();
@@ -29,33 +29,55 @@ export default function EventOverviewPage({ setUser }) {
     e.stopPropagation();
 
     if (!user) {
-      log("user not logged in");
+      log("User not logged in");
       navigate("/");
       setUser(null);
       return;
     }
+
     try {
       const userId = user._id;
-      log("user %o:", user);
+      log("User %o", user);
       log(`Joining event with ID: ${eventId}`);
+
+      if (
+        user._id === events.find((event) => event._id === eventId)?.host?._id
+      ) {
+        log("Host cannot join their own event");
+        return;
+      }
+
       const updateEvent = await sendRequest(
         `/api/events/${eventId}/join`,
         "POST",
         { userId }
       );
+      log("Updated event after join: %o", updateEvent);
       setEvents((prevEvents) =>
         prevEvents.map((event) =>
           event._id === updateEvent._id ? updateEvent : event
         )
       );
-      log("success");
+      localStorage.setItem(
+        `attendance-${eventId}`,
+        JSON.stringify(updateEvent.attendees.includes(userId))
+      );
     } catch (error) {
       log("Error joining event", error);
     }
   };
+
   const handleClickRow = (eventId) => {
     navigate(`/events/${eventId}`);
   };
+
+  const isUserAttending = (event) => {
+    return user && event.attendees && event.attendees.includes(user._id);
+  };
+
+  useEffect(() => {
+    log("Events state on render: %o", events);
+  }, [events]);
 
   return (
     <>
@@ -82,8 +104,8 @@ export default function EventOverviewPage({ setUser }) {
           </thead>
           <tbody>
             {events.map((event) => {
-              const isAttending =
-                user && event.attendees && event.attendees.includes(user._id);
+              const isAttending = isUserAttending(event);
+              log("Rendering event: %o, isAttending: %o", event, isAttending);
               return (
                 <tr
                   key={event._id}
@@ -100,8 +122,14 @@ export default function EventOverviewPage({ setUser }) {
                     <button
                       className="join-btn"
                       onClick={(e) => handleJoinBtn(event._id, e)}
+                      disabled={
+                        user && event.host && user._id === event.host._id
+                      }
                     >
-                      {isAttending ? "Leave" : "Join"}
+                      {isAttending ||
+                      localStorage.getItem(`attendance-${event._id}`) === "true"
+                        ? "Leave"
+                        : "Join"}
                     </button>
                   </td>
                 </tr>
