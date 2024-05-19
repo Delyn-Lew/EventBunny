@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getTasks, updateTask, deleteTask } from "../../utilities/tasks-service";
 import { getUser, getUsers } from "../../utilities/users-service";
 
-export default function TaskSetupPage({ setTasks, tasks, setUser }) {
+export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	const [users, setUsers] = useState([]);
 	const { eventId } = useParams();
 	log("eventId %s:", eventId);
@@ -31,14 +31,12 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 	}, [setUsers]);
 
 	const handleSave = async (event) => {
-		//save task into db and state
 		event.preventDefault();
-
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
+
 			return;
 		}
 
@@ -61,15 +59,11 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 		setTasks(newTasks);
 	};
 
-	//TODO do we need event.preventDefault()? it is not called here; and not within a form.
 	const handleUpdate = async (taskId, eventId, data) => {
-		// event.preventDefault();
-
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
 			return;
 		}
 
@@ -78,15 +72,11 @@ export default function TaskSetupPage({ setTasks, tasks, setUser }) {
 		navigate(`/events/${eventId}/tasks/edit`);
 	};
 
-	//TODO do we need event.preventDefault()? it is not called here; and not within a form.
 	const handleDelete = async (taskId, eventId) => {
-		// event.preventDefault();
-
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
-			navigate("/");
-			setUser(null);
+			setShowTimeout(true);
 			return;
 		}
 
