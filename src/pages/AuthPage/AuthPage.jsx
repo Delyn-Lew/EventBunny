@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function AuthPage({ setUser }) {
 	const [showSignUp, setShowSignUp] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
 	const navigate = useNavigate();
+
+	const togglePW = () => {
+		setShowPassword(!showPassword);
+	};
 
 	const navigateToSignUp = () => {
 		setShowSignUp(true);
@@ -18,9 +23,19 @@ export default function AuthPage({ setUser }) {
 	return (
 		<>
 			{!showSignUp ? (
-				<LoginForm setUser={setUser} onSignUp={navigateToSignUp} />
+				<LoginForm
+					setUser={setUser}
+					onSignUp={navigateToSignUp}
+					showPassword={showPassword}
+					togglePW={togglePW}
+				/>
 			) : (
-				<SignUpForm setUser={setUser} navigateToDash={navigateToDash} />
+				<SignUpForm
+					setUser={setUser}
+					navigateToDash={navigateToDash}
+					showPassword={showPassword}
+					togglePW={togglePW}
+				/>
 			)}
 		</>
 	);

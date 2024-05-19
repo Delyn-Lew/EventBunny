@@ -2,10 +2,16 @@ import debug from "debug";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../utilities/users-service";
 import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 const log = debug("eventbunny:components:LoginForm");
 
-export default function LoginForm({ setUser, onSignUp }) {
+export default function LoginForm({
+	setUser,
+	onSignUp,
+	showPassword,
+	togglePW,
+}) {
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
@@ -45,15 +51,27 @@ export default function LoginForm({ setUser, onSignUp }) {
 						name="email"
 					/>
 				</label>
-
-				<label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
-					Password:
-					<input
-						type="password"
-						className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
-						name="password"
-					/>
-				</label>
+				<div className="relative">
+					<label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
+						Password:
+						<input
+							type={showPassword ? "text" : "password"}
+							className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
+							name="password"
+						/>
+						{showPassword ? (
+							<EyeSlashIcon
+								onClick={togglePW}
+								className="h-4 w-4 absolute right-3 top-12"
+							/>
+						) : (
+							<EyeIcon
+								onClick={togglePW}
+								className="h-4 w-4 absolute right-3 top-12"
+							/>
+						)}
+					</label>
+				</div>
 				<button
 					className="ring-offset-background focus-visible:ring-ring flex h-10 w-full items-center justify-center whitespace-nowrap rounded-md bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
 					type="submit"
