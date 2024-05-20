@@ -1,4 +1,4 @@
-function SetupInput({ type, onChange, name, value, id }) {
+function SmallInput({ type, onChange, name, value, id }) {
 	return (
 		<input
 			type={type}
@@ -11,4 +11,4 @@ function SetupInput({ type, onChange, name, value, id }) {
 	);
 }
 
-export default SetupInput;
+export default SmallInput;
