@@ -150,9 +150,10 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 									onChange={handleChange("assignee", idx)}
 									name="assignee"
 									id="assignee"
+									value={task.assignee._id}
 								>
 									{users?.map((user) => (
-										<option value={user.name} key={user._id}>
+										<option value={user._id} key={user._id}>
 											{user.name}
 										</option>
 									))}
@@ -179,9 +180,9 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					</div>
 				) : (
 					<ul>
-						{tasks?.map((task) => (
+						{tasks.map((task) => (
 							<li key={task.name}>
-								{task.name} - {task.assignee?.name} - {task.status}
+								{task.name} - {task.status} - {task.assignee.name}
 							</li>
 						))}
 					</ul>

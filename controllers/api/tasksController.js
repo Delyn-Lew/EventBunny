@@ -38,7 +38,7 @@ const edit = async (req, res) => {
 		const task = await Task.findById(req.params.taskId);
 		debug("task %o:", task);
 		const { name, status, assignee } = req.body;
-		const user = await User.find({ name: assignee });
+		const user = await User.find({ _id: assignee });
 		task.name = name;
 		task.status = status;
 		task.assignee = user[0]._id;
