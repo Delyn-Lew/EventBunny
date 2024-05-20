@@ -55,7 +55,7 @@ export default function EventDetailsPage({ admin }) {
 				<ul>
 					{tasks.map((task) => (
 						<li key={task.name}>
-							{task.name} - {task.assignee} - {task.status}
+							{task.name} - {task.assignee?.name} - {task.status}
 						</li>
 					))}
 				</ul>

@@ -67,6 +67,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleUpdate = async (taskId, eventId, data) => {
+		event.preventDefault();
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -80,6 +81,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleDelete = async (taskId, eventId) => {
+		event.preventDefault();
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -105,7 +107,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					<label htmlFor="assignee">Assignee</label>
 					<select name="assignee" id="assignee">
 						{users?.map((user) => (
-							<option value={user.name} key={user._id}>
+							<option value={user._id} key={user._id}>
 								{user.name}
 							</option>
 						))}
@@ -179,7 +181,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					<ul>
 						{tasks?.map((task) => (
 							<li key={task.name}>
-								{task.name} - {task.assignee} - {task.status}
+								{task.name} - {task.assignee?.name} - {task.status}
 							</li>
 						))}
 					</ul>
