@@ -2,6 +2,7 @@ import debug from "debug";
 import { Component } from "react";
 import { signUp } from "../../utilities/users-service";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
+import Input from "../Input/Input";
 
 const log = debug("eventbunny:components:SignUpForm");
 
@@ -50,8 +51,7 @@ export default class SignUpForm extends Component {
 					<div className="m-0 p-0">
 						<label className="drop-shadow-sm text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 							Name:
-							<input
-								className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
+							<Input
 								type="text"
 								name="name"
 								value={this.state.name}
@@ -62,8 +62,7 @@ export default class SignUpForm extends Component {
 					<div className="m-0 p-0">
 						<label className="drop-shadow-sm text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 							Email:
-							<input
-								className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
+							<Input
 								type="email"
 								name="email"
 								value={this.state.email}
@@ -74,8 +73,7 @@ export default class SignUpForm extends Component {
 					<div className="relative m-0 p-0">
 						<label className="drop-shadow-sm text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 							Password:
-							<input
-								className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
+							<Input
 								type={this.props.showPassword ? "text" : "password"}
 								name="password"
 								value={this.state.password}
@@ -97,8 +95,7 @@ export default class SignUpForm extends Component {
 					<div className="relative m-0 p-0">
 						<label className="drop-shadow-sm text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 							Confirm:
-							<input
-								className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
+							<Input
 								type={this.props.showPassword ? "text" : "password"}
 								name="confirm"
 								value={this.state.confirm}

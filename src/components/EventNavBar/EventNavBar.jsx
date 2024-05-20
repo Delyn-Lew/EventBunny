@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./styles.css";
 import { useParams } from "react-router-dom";
+import Button from "../Button/Button";
 
 export default function EventNavBar({ disabled }) {
 	const { eventId } = useParams();
@@ -12,7 +13,7 @@ export default function EventNavBar({ disabled }) {
 				className={({ isActive }) => (isActive ? "active-link" : "")}
 				to={eventId ? `/events/edit/${eventId}` : "/events/create"}
 			>
-				<button type="button">{eventId ? "Edit Event" : "Create Event"}</button>
+				<Button type="button">{eventId ? "Edit Event" : "Create Event"}</Button>
 			</NavLink>
 			<br />
 			<NavLink
@@ -23,10 +24,10 @@ export default function EventNavBar({ disabled }) {
 						: `/events/${eventId}/tasks/new`
 				}
 			>
-				<button disabled={disabled} type="button">
+				<Button disabled={disabled} type="button">
 					{" "}
 					{!isEditPage ? "Edit Tasks" : "Add Task"}
-				</button>
+				</Button>
 			</NavLink>
 		</nav>
 	);
