@@ -3,14 +3,14 @@ import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { addTask } from "../../utilities/tasks-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:TaskSetupPage");
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
 	getTasks,
 	updateTask,
 	deleteTask,
 } from "../../utilities/tasks-service";
 import { getUser, getUsers } from "../../utilities/users-service";
-import SetupInput from "../../components/Input/SetupInput";
+import SmallInput from "../../components/Input/SmallInput";
 import SmallButton from "../../components/Button/SmallButton";
 
 export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
@@ -18,7 +18,8 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	const { eventId } = useParams();
 	log("eventId %s:", eventId);
 	const navigate = useNavigate();
-	const isEditPage = window.location.pathname.endsWith("/edit");
+	const location = useLocation();
+	const isEditPage = location.pathname.endsWith("/edit");
 
 	useEffect(() => {
 		const fetchTasks = async () => {
@@ -99,7 +100,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 			{!isEditPage && (
 				<form onSubmit={handleSave}>
 					<label htmlFor="name">Task Name</label>
-					<SetupInput type="text" name="name" id="name" />
+					<SmallInput type="text" name="name" id="name" />
 					<br />
 					<label htmlFor="assignee">Assignee</label>
 					<select name="assignee" id="assignee">
@@ -136,7 +137,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 								key={task._id}
 							>
 								<label htmlFor="name">Task Name</label>
-								<SetupInput
+								<SmallInput
 									type="text"
 									name="name"
 									value={task.name}

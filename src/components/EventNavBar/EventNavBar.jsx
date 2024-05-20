@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
 import "./styles.css";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Button from "../Button/Button";
 
 export default function EventNavBar({ disabled }) {
 	const { eventId } = useParams();
-	const isEditPage = window.location.pathname.endsWith("/edit");
+	const location = useLocation();
+	const isEditPage = location.pathname.endsWith("/edit");
 
 	return (
 		<nav className="eventnav">

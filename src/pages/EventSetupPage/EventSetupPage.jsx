@@ -1,5 +1,5 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import {
 	addEvent,
 	getEvent,
@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 import Button from "../../components/Button/Button";
-import SetupInput from "../../components/Input/SetupInput";
+import SmallInput from "../../components/Input/SmallInput";
 const log = debug("eventbunny:pages:EventSetupPage");
 
 export default function EventSetupPage({ userID, setShowTimeout }) {
@@ -18,7 +18,8 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 	const navigate = useNavigate();
 	const { eventId } = useParams();
 	const [event, setEvent] = useState("");
-	const isEditPage = window.location.pathname.includes("/edit");
+	const location = useLocation();
+	const isEditPage = location.pathname.includes("/edit");
 
 	let evtId = "";
 
@@ -80,7 +81,7 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 			<p>EVENTSETUP</p>
 			<form onSubmit={handleSave}>
 				<label htmlFor="name">Event Title</label>
-				<SetupInput
+				<SmallInput
 					type="text"
 					name="name"
 					id="name"
@@ -89,7 +90,7 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 				/>
 				<br />
 				<label htmlFor="description">Event Description</label>
-				<SetupInput
+				<SmallInput
 					type="text"
 					name="description"
 					id="description"
@@ -100,7 +101,7 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 				/>
 				<br />
 				<label htmlFor="date">Event Date/Time</label>
-				<SetupInput
+				<SmallInput
 					type="datetime-local"
 					name="date"
 					id="date"
@@ -109,7 +110,7 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 				/>
 				<br />
 				<label htmlFor="location">Event Location</label>
-				<SetupInput
+				<SmallInput
 					type="text"
 					name="location"
 					id="location"
@@ -122,7 +123,11 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 				) : (
 					<Button type="submit">SAVE</Button>
 				)}
-				<Button onClick={() => handleDelete(eventId)} type="button">
+				<Button
+					onClick={() => handleDelete(eventId)}
+					type="button"
+					disabled={disabled}
+				>
 					DELETE EVENT
 				</Button>
 			</form>
