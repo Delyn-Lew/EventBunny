@@ -49,11 +49,12 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
-		log("data: %o", data);
 		const taskData = { ...data, event: eventId };
-		log("taskdata: %o", taskData);
 		await addTask(taskData, eventId);
+		data.user = users.find((user) => user._id === data.assignee);
 		setTasks([...tasks, data]);
+		log("data: %o", data);
+		log("taskdata: %o", taskData);
 	};
 
 	const handleSubmit = () => {
@@ -182,7 +183,8 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					<ul>
 						{tasks.map((task) => (
 							<li key={task.name}>
-								{task.name} - {task.status} - {task.assignee.name}
+								{task.name} - {task.status} -{" "}
+								{task.assignee.name || task.user?.name}
 							</li>
 						))}
 					</ul>
