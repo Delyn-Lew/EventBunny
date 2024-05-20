@@ -3,25 +3,25 @@ import { getUser } from "../../utilities/users-service";
 import { useEffect, useState } from "react";
 import { fetchEventsInfo } from "../../utilities/events-api";
 import sendRequest from "../../utilities/send-request";
-import debug from "debug";
+// import debug from "debug";
 
-const log = debug("eventbunny:pages:EventOverviewPage");
+// const log = debug("eventbunny:pages:EventOverviewPage");
 
 export default function EventOverviewPage({ setShowTimeout }) {
   const [events, setEvents] = useState([]);
   const [eventAttending, setEventAttending] = useState({});
   const navigate = useNavigate();
   const user = getUser();
-  log("user %o:", user);
+  // log("user %o:", user);
 
   useEffect(() => {
     const getEventsInfo = async () => {
       try {
         const data = await fetchEventsInfo();
-        log("Fetched event data: %o", data);
+        // log("Fetched event data: %o", data);
         setEvents(data);
       } catch (error) {
-        log("error fetching events", error);
+        // log("error fetching events", error);
       }
     };
     getEventsInfo();
@@ -31,22 +31,22 @@ export default function EventOverviewPage({ setShowTimeout }) {
     e.stopPropagation();
 
     const currentUser = getUser();
-    log("currentuser %o:", currentUser);
+    // log("currentuser %o:", currentUser);
     if (!currentUser) {
-      log("user not logged in");
+      // log("user not logged in");
       setShowTimeout(true);
       return;
     }
 
     try {
       const userId = user._id;
-      log("User %o", user);
-      log(`Joining event with ID: ${eventId}`);
+      // log("User %o", user);
+      // log(`Joining event with ID: ${eventId}`);
 
       if (
         user._id === events.find((event) => event._id === eventId)?.host?._id
       ) {
-        log("Host cannot join their own event");
+        // log("Host cannot join their own event");
         return;
       }
 
@@ -55,9 +55,15 @@ export default function EventOverviewPage({ setShowTimeout }) {
         "POST",
         { userId }
       );
-      log("Updated event after join: %o", updateEvent);
-      setEvents((prevEvents) =>
-        prevEvents.map((event) =>
+      // log("Updated event after join: %o", updateEvent);
+
+      // setEvents((prevEvents) =>
+      //   prevEvents.map((event) =>
+      //     event._id === updateEvent._id ? updateEvent : event
+      //   )
+      // );
+      setEvents(
+        events.map((event) =>
           event._id === updateEvent._id ? updateEvent : event
         )
       );
@@ -70,9 +76,9 @@ export default function EventOverviewPage({ setShowTimeout }) {
       //   `attendance-${eventId}`,
       //   JSON.stringify(updateEvent.attendees.includes(userId))
       // );
-      log("Event joined successfully");
+      // log("Event joined successfully");
     } catch (error) {
-      log("Error joining event", error);
+      // log("Error joining event", error);
     }
   };
 
@@ -81,11 +87,15 @@ export default function EventOverviewPage({ setShowTimeout }) {
   };
 
   const isUserAttending = (event) => {
-    return user && event.attendees && event.attendees.includes(user._id);
+    // check if user is attending
+    const attendeeIds = [];
+    console.log(`event attendees: ${JSON.stringify(event.attendees)}`);
+    event.attendees.map((attendee) => attendeeIds.push(attendee._id));
+    return attendeeIds.includes(user._id);
   };
 
   useEffect(() => {
-    log("Events state on render: %o", events);
+    // log("Events state on render: %o", events);
   }, [events]);
 
   return (
@@ -114,7 +124,10 @@ export default function EventOverviewPage({ setShowTimeout }) {
           <tbody>
             {events.map((event) => {
               const isAttending = isUserAttending(event);
-              log("Rendering event: %o, isAttending: %o", event, isAttending);
+              console.log(event.name);
+              console.log(`user attending? ${isAttending}`);
+
+              // log("Rendering event: %o, isAttending: %o", event, isAttending);
               return (
                 <tr
                   key={event._id}
