@@ -8,43 +8,35 @@ import EventDetails from "./EventDetails";
 const log = debug("eventbunny:pages:EventDetailsPage");
 
 export default function EventDetailsPage({ admin }) {
-  const [event, setEvent] = useState({});
-  const [tasks, setTasks] = useState([]);
-  const { eventId } = useParams();
-  const user = getUser();
-  log("user_id", user?._id);
-  const navigate = useNavigate();
+	const [event, setEvent] = useState({});
+	const { eventId } = useParams();
+	const user = getUser();
+	log("user_id", user?._id);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchEvent() {
-      const event = await getEvent(eventId);
-      setEvent(event);
-    }
-    fetchEvent();
-  }, [eventId]);
+	useEffect(() => {
+		async function fetchEvent() {
+			const event = await getEvent(eventId);
+			setEvent(event);
+		}
+		fetchEvent();
+	}, [eventId]);
 
-  return (
-    <>
-      <EventDetails
-        event={event}
-        user={user}
-        admin={admin}
-        navigate={navigate}
-        eventId={eventId}
-      />
-      <h2>Tasks</h2>
-      <section>
-        <ul>
-          {tasks.map((task) => (
-            <EventTasks
-              key={task._id}
-              task={task}
-              setTasks={setTasks}
-              eventId={eventId}
-            />
-          ))}
-        </ul>
-      </section>
-    </>
-  );
+	return (
+		<>
+			<EventDetails
+				event={event}
+				user={user}
+				admin={admin}
+				navigate={navigate}
+				eventId={eventId}
+			/>
+			<h2>Tasks</h2>
+			<section>
+				<ul>
+					<EventTasks eventId={eventId} />
+				</ul>
+			</section>
+		</>
+	);
 }
