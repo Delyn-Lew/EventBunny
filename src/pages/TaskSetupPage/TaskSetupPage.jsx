@@ -71,7 +71,6 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleUpdate = async (taskId, eventId, data) => {
-		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -85,7 +84,6 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleDelete = async (taskId, eventId) => {
-		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -149,7 +147,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 									value={task.name}
 									onChange={handleChange("name", idx)}
 								/>
-								<label htmlFor="assignee">Assignee</label>
+								{/* <label htmlFor="assignee">Assignee</label>
 								<input
 									list="assignees"
 									name="assignee"
@@ -161,7 +159,20 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 									{users?.map((user) => (
 										<option label={user.name} value={user._id} key={user._id} />
 									))}
-								</datalist>
+								</datalist> */}
+								<label htmlFor="assignee">Assignee</label>
+								<select
+									onChange={handleChange("assignee", idx)}
+									name="assignee"
+									id="assignee"
+									value={task.assignee._id}
+								>
+									{users?.map((user) => (
+										<option value={user._id} key={user._id}>
+											{user.name}
+										</option>
+									))}
+								</select>
 								<label htmlFor="status">Status</label>
 								<select
 									onChange={handleChange("status", idx)}
