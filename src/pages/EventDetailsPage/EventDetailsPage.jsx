@@ -33,11 +33,6 @@ export default function EventDetailsPage({ admin }) {
       />
       <h2>Tasks</h2>
       <section>
-        <div className="mb-4">
-          <label htmlFor="task-filter" className="mr-2">
-            Filter tasks:
-          </label>
-        </div>
         <EventTasks eventId={eventId} />
       </section>
     </>

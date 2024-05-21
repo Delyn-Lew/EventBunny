@@ -25,6 +25,9 @@ export default function EventTasks({ eventId }) {
           {task.name} - {task.assignee.name} - {task.status}
         </li>
       ))} */}
+      <div className="mb-4">
+        <label className="mr-2">Filter tasks:</label>
+      </div>
       <select
         id="task-filter"
         value={filter}
