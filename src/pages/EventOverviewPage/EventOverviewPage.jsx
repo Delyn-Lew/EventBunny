@@ -29,7 +29,8 @@ export default function EventOverviewPage({ setShowTimeout }) {
 
   const handleJoinBtn = async (eventId, e) => {
     e.stopPropagation();
-
+    log("button click!");
+    log("eventId:", eventId);
     const currentUser = getUser();
     // log("currentuser %o:", currentUser);
     if (!currentUser) {
@@ -40,7 +41,7 @@ export default function EventOverviewPage({ setShowTimeout }) {
 
     try {
       const userId = user._id;
-      // log("User %o", user);
+      log("User %o", user);
       // log(`Joining event with ID: ${eventId}`);
 
       if (
@@ -72,10 +73,6 @@ export default function EventOverviewPage({ setShowTimeout }) {
         [eventId]: !eventAttending[eventId],
       });
       //TODO solve this --> use state instead of localstorage, then to change true/false for each event during the mapping of join/leave button.
-      // localStorage.setItem(
-      //   `attendance-${eventId}`,
-      //   JSON.stringify(updateEvent.attendees.includes(userId))
-      // );
       // log("Event joined successfully");
     } catch (error) {
       // log("Error joining event", error);
@@ -94,9 +91,7 @@ export default function EventOverviewPage({ setShowTimeout }) {
     return attendeeIds.includes(user._id);
   };
 
-  useEffect(() => {
-    // log("Events state on render: %o", events);
-  }, [events]);
+  // log("Events state on render: %o", events);
 
   return (
     <>
@@ -151,10 +146,6 @@ export default function EventOverviewPage({ setShowTimeout }) {
                       {isAttending || eventAttending[event._id]
                         ? "Leave"
                         : "Join"}
-                      {/* {isAttending ||
-                      localStorage.getItem(`attendance-${event._id}`) === "true"
-                        ? "Leave"
-                        : "Join"} */}
                     </button>
                   </td>
                 </tr>
