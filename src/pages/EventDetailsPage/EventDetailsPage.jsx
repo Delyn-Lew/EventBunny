@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getEvent } from "../../utilities/events-api";
+import { getEvent } from "../../utilities/events-service";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 import EventTasks from "./EventTasks";
@@ -8,38 +8,32 @@ import EventDetails from "./EventDetails";
 const log = debug("eventbunny:pages:EventDetailsPage");
 
 export default function EventDetailsPage({ admin }) {
-  const [event, setEvent] = useState({});
-  const { eventId } = useParams();
-  const user = getUser();
-  log("user_id", user?._id);
-  const navigate = useNavigate();
+	const [event, setEvent] = useState({});
+	const { eventId } = useParams();
+	const user = getUser();
+	log("user_id", user?._id);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchEvent() {
-      const event = await getEvent(eventId);
-      setEvent(event);
-    }
-    fetchEvent();
-  }, [eventId]);
+	useEffect(() => {
+		async function fetchEvent() {
+			const event = await getEvent(eventId);
+			setEvent(event);
+		}
+		fetchEvent();
+	}, [eventId]);
 
-  return (
-    <>
-      <EventDetails
-        event={event}
-        user={user}
-        admin={admin}
-        navigate={navigate}
-        eventId={eventId}
-      />
-      <h2>Tasks</h2>
-      <section>
-        <div className="mb-4">
-          <label htmlFor="task-filter" className="mr-2">
-            Filter tasks:
-          </label>
-        </div>
-        <EventTasks eventId={eventId} />
-      </section>
-    </>
-  );
+	return (
+		<>
+			<EventDetails event={event} user={user} admin={admin} navigate={navigate} eventId={eventId} />
+			<h2>Tasks</h2>
+			<section>
+				<div className='mb-4'>
+					<label htmlFor='task-filter' className='mr-2'>
+						Filter tasks:
+					</label>
+				</div>
+				<EventTasks eventId={eventId} />
+			</section>
+		</>
+	);
 }
