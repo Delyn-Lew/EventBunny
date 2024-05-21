@@ -19,8 +19,7 @@ function App() {
 	const [user, setUser] = useState(getUser());
 	const [tasks, setTasks] = useState([]);
 	const [showTimeout, setShowTimeout] = useState(false);
-	//eslint-disable-next-line no-unused-vars
-	const admin = user?._id == adminId;
+	const admin = user?._id === adminId;
 
 	log("user %o", user);
 	log("admin %s", admin);
