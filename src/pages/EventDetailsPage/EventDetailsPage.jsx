@@ -4,7 +4,8 @@ import { getEvent } from "../../utilities/events-api";
 import { getTasks } from "../../utilities/tasks-api";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
-import Button from "../../components/Button/Button";
+import EventTasks from "./EventTasks";
+import EventDetails from "./EventDetails";
 const log = debug("eventbunny:pages:EventDetailsPage");
 
 export default function EventDetailsPage({ admin }) {
@@ -28,35 +29,20 @@ export default function EventDetailsPage({ admin }) {
 		fetchTasks();
 	}, [eventId]);
 
-	const localDate = new Date(event.date).toLocaleString();
-
 	return (
 		<>
-			<h1>{event.name}</h1>
-			<section>
-				{event.host?._id === user?._id || admin ? (
-					<Button
-						onClick={() => {
-							navigate(`/events/edit/${eventId}`);
-						}}
-					>
-						Edit Event
-					</Button>
-				) : (
-					<p>This is not your event to Edit, look for {event.host?.name}</p>
-				)}
-				<p>{event.description}</p>
-				<p>DATE: {localDate}</p>
-				<p>LOCATION: {event.location}</p>
-				<p>HOST: {event.host?.name}</p>
-			</section>
+			<EventDetails
+				event={event}
+				user={user}
+				admin={admin}
+				navigate={navigate}
+				eventId={eventId}
+			/>
 			<h2>Tasks</h2>
 			<section>
 				<ul>
 					{tasks.map((task) => (
-						<li key={task.name}>
-							{task.name} - {task.assignee?.name} - {task.status}
-						</li>
+						<EventTasks key={task._id} task={task} />
 					))}
 				</ul>
 			</section>
