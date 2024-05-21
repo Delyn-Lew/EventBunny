@@ -35,8 +35,6 @@ const create = async (req, res) => {
 
 const edit = async (req, res) => {
 	try {
-		// more efficient, but less flexibility. also need to set {new:true, runValidators:true}
-		// const event = await Event.findByIdAndUpdate(req.params.eventId , req.body);
 		const event = await Event.findById(req.params.eventId);
 		if (!event) {
 			return res.status(404).json({ error: "event not found" });
@@ -67,7 +65,6 @@ const deleteOne = async (req, res) => {
 
 const userIndex = async (req, res) => {
 	try {
-		// const {userId} = req.body
 		const userId = req.query.userId;
 		debug("Receive userId", userId);
 		const eventsHosted = await Event.find({ host: userId }).populate("host attendees");
@@ -103,7 +100,7 @@ const join = async (req, res) => {
 		}
 
 		await event.save();
-		const updateEvent = await Event.findById(eventId).populate("host");
+		const updateEvent = await Event.findById(eventId).populate("host", "name").populate("attendees", "name");
 		res.status(200).json(updateEvent);
 	} catch (error) {
 		debug(`Error joining event: ${error}`);

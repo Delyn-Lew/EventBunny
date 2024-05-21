@@ -64,11 +64,14 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	const handleChange = (field, idx) => (event) => {
 		const newTasks = [...tasks];
 		newTasks[idx][field] = event.target.value;
+		newTasks[idx].user = users.find(
+			(user) => user._id === newTasks[idx].assignee
+		);
 		setTasks(newTasks);
 	};
 
 	const handleUpdate = async (taskId, eventId, data) => {
-		event.preventDefault();
+		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -82,7 +85,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleDelete = async (taskId, eventId) => {
-		event.preventDefault();
+		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -147,18 +150,18 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 									onChange={handleChange("name", idx)}
 								/>
 								<label htmlFor="assignee">Assignee</label>
-								<select
-									onChange={handleChange("assignee", idx)}
+								<input
+									list="assignees"
 									name="assignee"
 									id="assignee"
-									value={task.assignee._id}
-								>
+									value={task.assignee?.name || task.user?.name}
+									onChange={handleChange("assignee", idx)}
+								/>
+								<datalist id="assignees">
 									{users?.map((user) => (
-										<option value={user._id} key={user._id}>
-											{user.name}
-										</option>
+										<option label={user.name} value={user._id} key={user._id} />
 									))}
-								</select>
+								</datalist>
 								<label htmlFor="status">Status</label>
 								<select
 									onChange={handleChange("status", idx)}
