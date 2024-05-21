@@ -14,4 +14,10 @@ const eventSchema = new Schema(
 		timestamps: true,
 	}
 );
+
+eventSchema.pre(/^find/, function (next) {
+	this.sort({ date: 1 });
+	next();
+});
+
 module.exports = mongoose.model("Event", eventSchema);

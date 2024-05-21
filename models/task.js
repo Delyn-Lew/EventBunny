@@ -16,4 +16,11 @@ const taskSchema = new Schema(
 		timestamps: true,
 	}
 );
+
+taskSchema.pre(/^find/, function (next) {
+	this.populate({ path: "assignee", select: "name" });
+	this.sort({ "assignee.name": 1 });
+	next();
+});
+
 module.exports = mongoose.model("Task", taskSchema);
