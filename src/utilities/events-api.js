@@ -10,9 +10,9 @@ export function fetchEventsInfo() {
 	return sendRequest(EVENTS_URL, "GET");
 }
 
-// export function fetchUserEventsInfo(userId) {
-//   return sendRequest(`${EVENTS_URL}/user`, "GET", userId);
-// }
+export function joinEvent(eventId, userId) {
+	return sendRequest(`${EVENTS_URL}/${eventId}`, "PATCH", userId);
+}
 
 export function fetchUserEventsInfo(userId) {
 	return sendRequest(`${EVENTS_URL}/user?userId=${userId}`, "GET");

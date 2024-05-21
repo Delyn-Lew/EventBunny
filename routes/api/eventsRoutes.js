@@ -17,7 +17,6 @@ router.put("/:eventId", [ensureLoggedIn], eventsCtrl.edit);
 router.delete("/:eventId", [ensureLoggedIn], eventsCtrl.deleteOne);
 router.patch("/:eventId", [ensureLoggedIn], eventsCtrl.join);
 //TASKS
-router.post("/:eventId/join", [ensureLoggedIn], eventsCtrl.join);
 router.get("/:eventId/tasks", [ensureLoggedIn], tasksCtrl.index);
 router.post("/:eventId/tasks", [ensureLoggedIn], tasksCtrl.create);
 router.put("/:eventId/tasks/:taskId", [ensureLoggedIn], tasksCtrl.edit);

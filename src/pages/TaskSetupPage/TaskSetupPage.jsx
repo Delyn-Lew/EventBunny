@@ -68,7 +68,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleUpdate = async (taskId, eventId, data) => {
-		event.preventDefault();
+		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -82,7 +82,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	};
 
 	const handleDelete = async (taskId, eventId) => {
-		event.preventDefault();
+		
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
