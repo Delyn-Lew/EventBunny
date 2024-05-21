@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { logOut } from "../../utilities/users-service";
+import Button from "../Button/Button";
 
 export default function NavBar({ setUser, user }) {
 	const handleLogOut = () => {
@@ -8,33 +9,24 @@ export default function NavBar({ setUser, user }) {
 	};
 
 	return (
-		<header className='flex flex-wrap justify-between sm:justify-start sm:flex-nowrap w-full bg-white bg-opacity-75 text-sm py-4 mb-5 drop-shadow-xl shadow-xl'>
-			<nav className='max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between' aria-label='Global'>
-				<NavLink to='/dashboard'>
-					<img src='Untitled-1.png' className='h-10' alt='logo' />
+		<header className="flex flex-wrap justify-between sm:justify-start sm:flex-nowrap w-full bg-white bg-opacity-75 text-sm py-4 mb-5 drop-shadow-xl shadow-xl">
+			<nav
+				className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
+				aria-label="Global"
+			>
+				<NavLink to="/dashboard">
+					<img src="Untitled-1.png" className="h-10" alt="logo" />
 				</NavLink>
-				<NavLink to='/dashboard'>
-					<button
-						className='transition-all drop-shadow-lg bg-white border-2 border-transparent p-2 px-5 rounded-md hover:border-slate-300 hover:rounded-lg active:bg-slate-300 focus-visible:bg-slate-300 shadow-inner cursor-pointer text-center font-medium text-slate-700'
-						type='button'>
-						Home
-					</button>
+				<NavLink to="/dashboard">
+					<Button type="button">Home</Button>
 				</NavLink>
-				<hr className='rotate-0 h-5 m-0 p-0 opacity-30 ' />
-				<NavLink to='/user'>
-					<button
-						className='transition-all drop-shadow-lg bg-white border-2 border-transparent p-2 px-5 rounded-md hover:border-slate-300 hover:rounded-lg active:bg-slate-300 focus-visible:bg-slate-300 shadow-inner cursor-pointer text-center font-medium text-slate-700'
-						type='button'>
-						My Event
-					</button>
+				<hr className="rotate-0 h-5 m-0 p-0 opacity-30 " />
+				<NavLink to="/user">
+					<Button type="button">My Event</Button>
 				</NavLink>
-				<hr className='rotate-0 h-5 m-0 p-0 opacity-30' />
-				<Link to='' onClick={handleLogOut}>
-					<button
-						className='transition-all drop-shadow-lg bg-white border-2 border-transparent p-2 px-5 rounded-md hover:border-slate-300 hover:rounded-lg active:bg-slate-300 focus-visible:bg-slate-300 shadow-inner cursor-pointer text-center font-medium text-slate-700'
-						type='button'>
-						Log Out
-					</button>
+				<hr className="rotate-0 h-5 m-0 p-0 opacity-30" />
+				<Link to="" onClick={handleLogOut}>
+					<Button type="button">Log Out</Button>
 				</Link>
 				<p>Welcome {user.name}</p>
 			</nav>
