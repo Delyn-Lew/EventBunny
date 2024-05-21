@@ -1,6 +1,8 @@
-function SmallInput({ type, onChange, name, value, id }) {
+function SmallInput({ type, onChange, name, value, id, minLength, required }) {
 	return (
 		<input
+			minLength={minLength}
+			required={required}
 			type={type}
 			onChange={onChange}
 			name={name}

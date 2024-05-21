@@ -34,7 +34,8 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			const users = await getUsers();
-			setUsers(users);
+			setUsers(users.filter((user) => user.name !== "admin"));
+			console.log(users);
 		};
 		fetchUsers();
 	}, [setUsers]);
