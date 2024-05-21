@@ -9,23 +9,13 @@ export default function EventNavBar({ disabled }) {
 	const isEditPage = location.pathname.endsWith("/edit");
 
 	return (
-		<nav className="eventnav">
-			<NavLink
-				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to={eventId ? `/events/edit/${eventId}` : "/events/create"}
-			>
-				<Button type="button">{eventId ? "Edit Event" : "Create Event"}</Button>
+		<nav className='eventnav'>
+			<NavLink className={({ isActive }) => (isActive ? "active-link" : "")} to={eventId ? `/events/edit/${eventId}` : "/events/create"}>
+				<Button type='button'>{eventId ? "Edit Event" : "Create Event"}</Button>
 			</NavLink>
 			<br />
-			<NavLink
-				className={({ isActive }) => (isActive ? "active-link" : "")}
-				to={
-					!isEditPage
-						? `/events/${eventId}/tasks/edit`
-						: `/events/${eventId}/tasks/new`
-				}
-			>
-				<Button disabled={disabled} type="button">
+			<NavLink className={({ isActive }) => (isActive ? "active-link" : "")} to={!isEditPage ? `/events/${eventId}/tasks/edit` : `/events/${eventId}/tasks/new`}>
+				<Button disabled={disabled} type='button'>
 					{" "}
 					{!isEditPage ? "Edit Tasks" : "Add Task"}
 				</Button>
