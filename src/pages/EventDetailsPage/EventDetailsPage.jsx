@@ -4,6 +4,7 @@ import { getEvent } from "../../utilities/events-api";
 import { getTasks } from "../../utilities/tasks-api";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
+import Button from "../../components/Button/Button";
 const log = debug("eventbunny:pages:EventDetailsPage");
 
 export default function EventDetailsPage({ admin }) {
@@ -34,12 +35,13 @@ export default function EventDetailsPage({ admin }) {
 			<h1>{event.name}</h1>
 			<section>
 				{event.host?._id === user?._id || admin ? (
-					<button
+					<Button
 						onClick={() => {
 							navigate(`/events/edit/${eventId}`);
-						}}>
+						}}
+					>
 						Edit Event
-					</button>
+					</Button>
 				) : (
 					<p>This is not your event to Edit, look for {event.host?.name}</p>
 				)}
@@ -53,7 +55,7 @@ export default function EventDetailsPage({ admin }) {
 				<ul>
 					{tasks.map((task) => (
 						<li key={task.name}>
-							{task.name} - {task.assignee} - {task.status}
+							{task.name} - {task.assignee?.name} - {task.status}
 						</li>
 					))}
 				</ul>

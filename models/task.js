@@ -9,8 +9,7 @@ const taskSchema = new Schema(
 			enum: ["incomplete", "completed"],
 			default: "incomplete",
 		},
-		assignee: { type: String },
-		delegated: { type: Schema.Types.ObjectId, ref: "User" },
+		assignee: { type: Schema.Types.ObjectId, ref: "User" },
 		event: { type: Schema.Types.ObjectId, ref: "Event" },
 	},
 	{

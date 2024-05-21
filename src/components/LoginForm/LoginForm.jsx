@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../utilities/users-service";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
+import Input from "../Input/Input";
 
 const log = debug("eventbunny:components:LoginForm");
 
@@ -45,20 +46,12 @@ export default function LoginForm({
 
 				<label className="drop-shadow-sm text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 					Email:
-					<input
-						type="email"
-						className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
-						name="email"
-					/>
+					<Input type="email" name="email" />
 				</label>
 				<div className="relative">
 					<label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col m-5 items-center">
 						Password:
-						<input
-							type={showPassword ? "text" : "password"}
-							className="border-opacity-60 border-slate-500 border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-2 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 my-2"
-							name="password"
-						/>
+						<Input type={showPassword ? "text" : "password"} name="password" />
 						{showPassword ? (
 							<EyeSlashIcon
 								onClick={togglePW}
