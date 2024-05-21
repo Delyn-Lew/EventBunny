@@ -1,8 +1,7 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
 import { useEffect, useState } from "react";
-import { fetchEventsInfo } from "../../utilities/events-api";
-import { joinEvent } from "../../utilities/events-service";
+import { fetchEventsInfo, joinEvent } from "../../utilities/events-service";
 import debug from "debug";
 
 const log = debug("eventbunny:pages:EventOverviewPage");

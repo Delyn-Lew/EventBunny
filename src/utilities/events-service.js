@@ -8,11 +8,10 @@ export const fetchEventsInfo = async () => {
 	return await eventsAPI.fetchEventsInfo();
 };
 
-export const fetchUserEventsInfo = async () => {
-	return await eventsAPI.fetchUserEventsInfo();
+export const fetchUserEventsInfo = async (userId) => {
+	return await eventsAPI.fetchUserEventsInfo(userId);
 };
 
-//TODO moved from eventoverviewpage
 export const joinEvent = async (eventId, userId) => {
 	return await eventsAPI.joinEvent(eventId, userId);
 };
