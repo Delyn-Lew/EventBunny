@@ -3,16 +3,16 @@ import { getUser } from "../../utilities/users-service";
 import { useEffect, useState } from "react";
 import { fetchEventsInfo } from "../../utilities/events-api";
 import sendRequest from "../../utilities/send-request";
-// import debug from "debug";
+import debug from "debug";
 
-// const log = debug("eventbunny:pages:EventOverviewPage");
+const log = debug("eventbunny:pages:EventOverviewPage");
 
 export default function EventOverviewPage({ setShowTimeout }) {
   const [events, setEvents] = useState([]);
   const [eventAttending, setEventAttending] = useState({});
   const navigate = useNavigate();
   const user = getUser();
-  // log("user %o:", user);
+  log("user %o:", user);
 
   useEffect(() => {
     const getEventsInfo = async () => {
