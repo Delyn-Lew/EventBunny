@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEvent } from "../../utilities/events-api";
-import { getTasks } from "../../utilities/tasks-api";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 import EventTasks from "./EventTasks";
@@ -22,11 +21,6 @@ export default function EventDetailsPage({ admin }) {
 			setEvent(event);
 		}
 		fetchEvent();
-		async function fetchTasks() {
-			const tasks = await getTasks(eventId);
-			setTasks(tasks);
-		}
-		fetchTasks();
 	}, [eventId]);
 
 	return (
@@ -42,7 +36,12 @@ export default function EventDetailsPage({ admin }) {
 			<section>
 				<ul>
 					{tasks.map((task) => (
-						<EventTasks key={task._id} task={task} />
+						<EventTasks
+							key={task._id}
+							task={task}
+							setTasks={setTasks}
+							eventId={eventId}
+						/>
 					))}
 				</ul>
 			</section>
