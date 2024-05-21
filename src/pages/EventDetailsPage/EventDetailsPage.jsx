@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getEvent } from "../../utilities/events-api";
+import { getEvent } from "../../utilities/events-service";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
 import EventTasks from "./EventTasks";
