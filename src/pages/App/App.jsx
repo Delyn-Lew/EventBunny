@@ -20,18 +20,18 @@ function App() {
 	const [tasks, setTasks] = useState([]);
 	const [showTimeout, setShowTimeout] = useState(false);
 	//eslint-disable-next-line no-unused-vars
-	const [admin, setAdmin] = useState(user?._id === adminId);
+	const admin = user?._id == adminId;
 
 	log("user %o", user);
 	log("admin %s", admin);
 
-  if (!user) {
-    return (
-      <main className="App">
-        <AuthPage setUser={setUser} />
-      </main>
-    );
-  }
+	if (!user) {
+		return (
+			<main className='App'>
+				<AuthPage setUser={setUser} />
+			</main>
+		);
+	}
 
 	return (
 		<main className='App'>
@@ -56,7 +56,7 @@ function App() {
 								{user && <NavBar user={user} setUser={setUser} />}
 								<Routes>
 									<Route path='/dashboard' element={<EventOverviewPage setShowTimeout={setShowTimeout} />} />
-									<Route path="/user" element={<MyEventsPage />} />
+									<Route path='/user' element={<MyEventsPage />} />
 									<Route path='/events/create' element={<EventSetupPage userID={user["_id"]} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/edit/:eventId' element={<EventSetupPage setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId' element={<EventDetailsPage admin={admin} setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
