@@ -111,13 +111,13 @@ As a user,
 Log In
 
 <p align="center">
-<img src = "Assets/Login Page.png" height = "350px">
+<img src = "Assets/Login-Actual.png" height = "350px">
 </p>
 
 Sign Up
 
 <p align="center">
-<img src = "Assets/SignUpPage.png" height = "350px">
+<img src = "Assets/SignUp-Actual.png" height = "350px">
 </p>
 
 Event Overview Page
