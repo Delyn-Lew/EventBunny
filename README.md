@@ -2,7 +2,7 @@
 
 Deployed on https://eventbunny.onrender.com
 
-[Wireframe-Figma](https://www.figma.com/board/5YgTMJFPrdI1myointvs4L/Event-Bunny?node-id=0-1&t=ia3y9YoB7H06JqBD-0)
+Wireframe-Figma: (https://www.figma.com/board/5YgTMJFPrdI1myointvs4L/Event-Bunny?node-id=0-1&t=ia3y9YoB7H06JqBD-0)
 
 Trello: (https://trello.com/b/kGkjvRmj/event-bunny)
 
