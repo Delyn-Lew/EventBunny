@@ -41,6 +41,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	}, [setUsers]);
 
 	const handleSave = async (event) => {
+		event.preventDefault();
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -119,7 +120,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					<>
 						{tasks?.map((task, idx) => (
 							<TaskEditForm
-								key={task?._id}
+								key={task._id}
 								task={task}
 								eventId={eventId}
 								users={users}
@@ -127,13 +128,14 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 								handleChange={handleChange}
 								idx={idx}
 								handleDelete={handleDelete}
+								setTasks={setTasks}
 							/>
 						))}
 					</>
 				) : (
 					<ul className="flex flex-col items-center list-none">
 						{tasks.map((task) => (
-							<TaskList key={task?._id} task={task} />
+							<TaskList key={task._id} task={task} />
 						))}
 					</ul>
 				)}

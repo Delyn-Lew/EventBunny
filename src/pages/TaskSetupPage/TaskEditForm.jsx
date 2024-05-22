@@ -1,10 +1,11 @@
 import SmallInput from "../../components/Input/SmallInput";
 import SmallButton from "../../components/Button/SmallButton";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { getTasks } from "../../utilities/tasks-service";
+import { useParams } from "react-router-dom";
 export default function TaskEditForm({
 	task,
-	eventId,
+	setTasks,
 	users,
 	handleUpdate,
 	handleChange,
@@ -12,6 +13,15 @@ export default function TaskEditForm({
 	handleDelete,
 }) {
 	const [error, setError] = useState({});
+	const { eventId } = useParams();
+
+	useEffect(() => {
+		const fetchTasks = async () => {
+			const tasks = await getTasks(eventId);
+			setTasks(tasks);
+		};
+		fetchTasks();
+	}, [eventId, setTasks]);
 
 	const validate = (event) => {
 		const formData = new FormData(event.target);
