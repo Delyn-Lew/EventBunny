@@ -1,4 +1,4 @@
-function Input({ type, onChange, name, value, id, minLength, required }) {
+function Input({ type, onChange, name, value, id, minLength = 1, required }) {
 	return (
 		<input
 			minLength={minLength}

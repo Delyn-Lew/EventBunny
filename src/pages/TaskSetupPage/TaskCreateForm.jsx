@@ -1,10 +1,23 @@
 import Button from "../../components/Button/Button";
 import SmallInput from "../../components/Input/SmallInput";
+import { useState } from "react";
 
 export default function TaskCreateForm({ handleSave, users }) {
+	const [error, setError] = useState({});
+
+	const validate = (event) => {
+		const formData = new FormData(event.target);
+		const data = Object.fromEntries(formData);
+		const nameError = !data.name ? "Task name should not be empty" : "";
+		setError({ nameError });
+	};
+
 	return (
 		<form
-			onSubmit={handleSave}
+			onSubmit={(event) => {
+				validate(event);
+				handleSave(event);
+			}}
 			className="w-2/3 flex justify-center flex-col items-center bg-white bg-opacity-80 p-5 rounded-lg drop-shadow-xl shadow-inner border-2 mt10"
 		>
 			<label htmlFor="name">Task Name</label>
@@ -35,6 +48,7 @@ export default function TaskCreateForm({ handleSave, users }) {
 				<option value="completed">completed</option>
 			</select>
 			<br />
+			{error.nameError && <p className="text-red-500">{error.nameError}</p>}
 			<Button type="submit">SAVE</Button>
 		</form>
 	);

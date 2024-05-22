@@ -1,5 +1,6 @@
 import SmallInput from "../../components/Input/SmallInput";
 import SmallButton from "../../components/Button/SmallButton";
+import { useState } from "react";
 
 export default function TaskEditForm({
 	task,
@@ -10,12 +11,25 @@ export default function TaskEditForm({
 	idx,
 	handleDelete,
 }) {
+	const [error, setError] = useState({});
+
+	const validate = (event) => {
+		const formData = new FormData(event.target);
+		const data = Object.fromEntries(formData);
+		const nameError = !data.name ? "Task name should not be empty" : "";
+		setError({ nameError });
+	};
 	return (
 		<form
 			className=" flex justify-center bg-white bg-opacity-80 p-5 items-center gap-5 "
-			onSubmit={() => handleUpdate(task._id, eventId, task)}
+			onSubmit={(event) => {
+				validate(event);
+				handleUpdate(task._id, eventId, task);
+			}}
 			key={task._id}
 		>
+			{error.nameError && <p className="text-red-500">{error.nameError}</p>}
+
 			<label htmlFor="name">Task Name</label>
 			<SmallInput
 				type="text"

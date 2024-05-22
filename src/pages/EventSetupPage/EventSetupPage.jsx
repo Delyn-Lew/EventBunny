@@ -20,6 +20,21 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 	const [event, setEvent] = useState("");
 	const location = useLocation();
 	const isEditPage = location.pathname.includes("/edit");
+	const [error, setError] = useState({});
+
+	const validate = (event) => {
+		const formData = new FormData(event.target);
+		const data = Object.fromEntries(formData);
+		const nameError = !data.name ? "Event title should not be empty" : "";
+		const dateError = !data.date ? "Event date should not be empty" : "";
+		const descError = !data.description
+			? "Event description should not be empty"
+			: "";
+		const locationError = !data.location
+			? "Event location should not be empty"
+			: "";
+		setError({ nameError, dateError, descError, locationError });
+	};
 
 	let evtId = "";
 
@@ -83,7 +98,10 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 			<div className="flex justify-center flex-col items-center h-full w-full my-20">
 				<h2>Event Setup</h2>
 				<form
-					onSubmit={handleSave}
+					onSubmit={(event) => {
+						validate(event);
+						handleSave(event);
+					}}
 					className="w-2/3 flex justify-center flex-col items-center bg-white bg-opacity-80 p-5 rounded-lg drop-shadow-xl shadow-inner border-2 my-10"
 				>
 					<label htmlFor="name">Event Title</label>
@@ -125,6 +143,12 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 							setEvent({ ...event, location: evt.target.value })
 						}
 					/>
+					{error.nameError && <p className="text-red-500">{error.nameError}</p>}
+					{error.dateError && <p className="text-red-500">{error.dateError}</p>}
+					{error.descError && <p className="text-red-500">{error.descError}</p>}
+					{error.locationError && (
+						<p className="text-red-500">{error.locationError}</p>
+					)}
 					<br />
 					<span className="flex justify-center gap-10">
 						{eventId ? (
