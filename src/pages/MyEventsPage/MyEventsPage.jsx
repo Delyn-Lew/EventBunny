@@ -35,40 +35,42 @@ export default function MyEventsPage() {
   };
 
   return (
-    <div>
-      <h2 className="text-center">Hosted Events</h2>
-      {hostedEvents.length > 0 ? (
-        <ul className="text-center">
-          {hostedEvents.map((event) => (
-            <li
-              key={event._id}
-              onClick={() => handleClickEvent(event._id)}
-              style={{ cursor: "pointer" }}
-            >
-              {event.name}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No hosted events found.</p>
-      )}
+    <div className="flex justify-center">
+      <section className="text-xl bg-white bg-opacity-80 w-[100rem] p-5 rounded-lg flex flex-col justify-center items-center drop-shadow-xl">
+        <h2 className="text-center">Hosted Events</h2>
+        {hostedEvents.length > 0 ? (
+          <ul>
+            {hostedEvents.map((event) => (
+              <li
+                key={event._id}
+                onClick={() => handleClickEvent(event._id)}
+                style={{ cursor: "pointer" }}
+              >
+                {event.name}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hosted events found.</p>
+        )}
 
-      <h2 className="text-center">Attending Events</h2>
-      {attendingEvents.length > 0 ? (
-        <ul className="text-center">
-          {attendingEvents.map((event) => (
-            <li
-              key={event._id}
-              onClick={() => handleClickEvent(event._id)}
-              style={{ cursor: "pointer" }}
-            >
-              {event.name}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No attending events found.</p>
-      )}
+        <h2 className="text-center">Attending Events</h2>
+        {attendingEvents.length > 0 ? (
+          <ul>
+            {attendingEvents.map((event) => (
+              <li
+                key={event._id}
+                onClick={() => handleClickEvent(event._id)}
+                style={{ cursor: "pointer" }}
+              >
+                {event.name}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No attending events found.</p>
+        )}
+      </section>
     </div>
   );
 }
