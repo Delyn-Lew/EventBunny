@@ -3,6 +3,7 @@ import { getUser } from "../../utilities/users-service";
 import { useEffect, useState } from "react";
 import { fetchEventsInfo, joinEvent } from "../../utilities/events-service";
 import debug from "debug";
+import Button from "../../components/Button/Button";
 
 const log = debug("eventbunny:pages:EventOverviewPage");
 
@@ -68,14 +69,6 @@ export default function EventOverviewPage({ setShowTimeout }) {
 
   return (
     <>
-      <Link to="/events/create">
-        <button
-          className="middle none center mr-3 rounded-lg border border-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:opacity-75 focus:ring focus:ring-pink-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          data-ripple-dark="true"
-        >
-          Create new event
-        </button>
-      </Link>
       {events.length > 0 && (
         <table className="events-table">
           <thead>
@@ -119,6 +112,15 @@ export default function EventOverviewPage({ setShowTimeout }) {
         </table>
       )}
       <Outlet />
+      <Link to="/events/create">
+        {/* <button
+          className="middle none center mr-3 rounded-lg border border-pink-500 py-3 px-6 font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:opacity-75 focus:ring focus:ring-pink-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-dark="true"
+        >
+          Create new event
+        </button> */}
+        <Button type="button"> Create new event </Button>
+      </Link>
     </>
   );
 }
