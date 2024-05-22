@@ -4,11 +4,7 @@ import { addTask } from "../../utilities/tasks-service";
 import debug from "debug";
 const log = debug("eventbunny:pages:TaskSetupPage");
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import {
-	getTasks,
-	updateTask,
-	deleteTask,
-} from "../../utilities/tasks-service";
+import { getTasks, updateTask, deleteTask } from "../../utilities/tasks-service";
 import { getUser, getUsers } from "../../utilities/users-service";
 import SmallInput from "../../components/Input/SmallInput";
 import SmallButton from "../../components/Button/SmallButton";
@@ -43,7 +39,6 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 		if (!user) {
 			log("user not logged in");
 			setShowTimeout(true);
-
 			return;
 		}
 
@@ -64,9 +59,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	const handleChange = (field, idx) => (event) => {
 		const newTasks = [...tasks];
 		newTasks[idx][field] = event.target.value;
-		newTasks[idx].user = users.find(
-			(user) => user._id === newTasks[idx].assignee
-		);
+		newTasks[idx].user = users.find((user) => user._id === newTasks[idx].assignee);
 		setTasks(newTasks);
 	};
 
@@ -103,11 +96,11 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 			<p>TASKSETUP</p>
 			{!isEditPage && (
 				<form onSubmit={handleSave}>
-					<label htmlFor="name">Task Name</label>
-					<SmallInput type="text" name="name" id="name" />
+					<label htmlFor='name'>Task Name</label>
+					<SmallInput type='text' name='name' id='name' />
 					<br />
-					<label htmlFor="assignee">Assignee</label>
-					<select name="assignee" id="assignee">
+					<label htmlFor='assignee'>Assignee</label>
+					<select name='assignee' id='assignee'>
 						{users?.map((user) => (
 							<option value={user._id} key={user._id}>
 								{user.name}
@@ -115,18 +108,14 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 						))}
 					</select>
 					<br />
-					<label htmlFor="status">Status</label>
-					<select name="status" id="status">
-						<option value="incomplete">incomplete</option>
-						<option value="completed">completed</option>
+					<label htmlFor='status'>Status</label>
+					<select name='status' id='status'>
+						<option value='incomplete'>incomplete</option>
+						<option value='completed'>completed</option>
 					</select>
-					<p
-						style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}
-					>
-						(check the box if completed)
-					</p>
+					<p style={{ color: "slategray", fontSize: "10px", lineHeight: "0px" }}>(check the box if completed)</p>
 
-					<button type="submit">SAVE</button>
+					<button type='submit'>SAVE</button>
 				</form>
 			)}
 
@@ -136,17 +125,9 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 				{isEditPage ? (
 					<div>
 						{tasks?.map((task, idx) => (
-							<form
-								onSubmit={() => handleUpdate(task._id, eventId, task)}
-								key={task._id}
-							>
-								<label htmlFor="name">Task Name</label>
-								<SmallInput
-									type="text"
-									name="name"
-									value={task.name}
-									onChange={handleChange("name", idx)}
-								/>
+							<form onSubmit={() => handleUpdate(task._id, eventId, task)} key={task._id}>
+								<label htmlFor='name'>Task Name</label>
+								<SmallInput type='text' name='name' value={task.name} onChange={handleChange("name", idx)} />
 								{/* <label htmlFor="assignee">Assignee</label>
 								<input
 									list="assignees"
@@ -160,34 +141,21 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 										<option label={user.name} value={user._id} key={user._id} />
 									))}
 								</datalist> */}
-								<label htmlFor="assignee">Assignee</label>
-								<select
-									onChange={handleChange("assignee", idx)}
-									name="assignee"
-									id="assignee"
-									value={task.assignee._id}
-								>
+								<label htmlFor='assignee'>Assignee</label>
+								<select onChange={handleChange("assignee", idx)} name='assignee' id='assignee' value={task.assignee._id}>
 									{users?.map((user) => (
 										<option value={user._id} key={user._id}>
 											{user.name}
 										</option>
 									))}
 								</select>
-								<label htmlFor="status">Status</label>
-								<select
-									onChange={handleChange("status", idx)}
-									name="status"
-									id="status"
-									value={task.status}
-								>
-									<option value="incomplete">incomplete</option>
-									<option value="completed">completed</option>
+								<label htmlFor='status'>Status</label>
+								<select onChange={handleChange("status", idx)} name='status' id='status' value={task.status}>
+									<option value='incomplete'>incomplete</option>
+									<option value='completed'>completed</option>
 								</select>
-								<SmallButton type="submit">UPDATE</SmallButton>
-								<SmallButton
-									onClick={() => handleDelete(task._id, eventId)}
-									type="button"
-								>
+								<SmallButton type='submit'>UPDATE</SmallButton>
+								<SmallButton onClick={() => handleDelete(task._id, eventId)} type='button'>
 									DELETE
 								</SmallButton>
 							</form>
@@ -197,8 +165,7 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 					<ul>
 						{tasks.map((task) => (
 							<li key={task.name}>
-								{task.name} - {task.status} -{" "}
-								{task.assignee.name || task.user?.name}
+								{task.name} - {task.status} - {task.assignee.name || task.user?.name}
 							</li>
 						))}
 					</ul>
