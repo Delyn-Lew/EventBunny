@@ -4,6 +4,11 @@ const Task = require("../../models/task");
 const index = async (req, res) => {
 	try {
 		const tasks = await Task.find({ event: req.params.eventId }).populate("assignee", "name");
+		tasks.sort((a, b) => {
+			if (a.assignee.name < b.assignee.name) return -1;
+			if (a.assignee.name > b.assignee.name) return 1;
+			return 0;
+		});
 		res.status(200).json(tasks);
 	} catch (error) {
 		res.status(500).json({ error });

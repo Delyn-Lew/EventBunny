@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema(
 	{
-		name: { type: String, required: true },
+		name: { type: String, required: true, trim: true, minlength: 1 },
 		status: {
 			type: String,
 			enum: ["incomplete", "completed"],
@@ -17,10 +17,10 @@ const taskSchema = new Schema(
 	}
 );
 
-taskSchema.pre(/^find/, function (next) {
-	this.populate({ path: "assignee", select: "name" });
-	this.sort({ "assignee.name": 1 });
-	next();
-});
+// taskSchema.pre(/^find/, function (next) {
+// 	this.populate({ path: "assignee", select: "name" });
+// 	this.sort({ "assignee.name": 1 });
+// 	next();
+// });
 
 module.exports = mongoose.model("Task", taskSchema);
