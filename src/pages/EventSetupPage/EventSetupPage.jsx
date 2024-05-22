@@ -1,11 +1,6 @@
 import EventNavBar from "../../components/EventNavBar/EventNavBar";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import {
-	addEvent,
-	getEvent,
-	updateEvent,
-	deleteEvent,
-} from "../../utilities/events-service";
+import { addEvent, getEvent, updateEvent, deleteEvent } from "../../utilities/events-service";
 import { useState, useEffect } from "react";
 import { getUser } from "../../utilities/users-service";
 import debug from "debug";
@@ -37,7 +32,6 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 
 	const handleSave = async (event) => {
 		event.preventDefault();
-		//to do check before allowing any fetch req to proceed.
 		const user = getUser();
 		if (!user) {
 			log("user not logged in");
@@ -47,12 +41,15 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 
 		const formData = new FormData(event.target);
 		const data = Object.fromEntries(formData);
+		log("userID", userID);
+		data.user = userID;
 		log("data: %o", data);
 		if (isEditPage) {
 			await updateEvent(eventId, data);
 			navigate(`/events/${eventId}/tasks/edit`);
 		} else {
 			const eventData = { ...data, host: userID };
+			log("eventData: %o", eventData);
 			const response = await addEvent(eventData);
 			evtId = response._id;
 			navigate(`/events/${evtId}/tasks/new`);
@@ -66,68 +63,31 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 			setShowTimeout(true);
 			return;
 		}
-		await deleteEvent(eventId);
-		navigate(`/dashboard`); //should change to MyEvents Page.
+		log("delete", userID);
+		await deleteEvent(eventId, { userID });
+		navigate(`/user`);
 	};
 
 	return (
 		<div>
 			<br />
-			<EventNavBar
-				eventId={evtId}
-				disabled={disabled}
-				setDisabled={setDisabled}
-			/>
+			<EventNavBar eventId={evtId} disabled={disabled} setDisabled={setDisabled} />
 			<p>EVENTSETUP</p>
 			<form onSubmit={handleSave}>
-				<label htmlFor="name">Event Title</label>
-				<SmallInput
-					type="text"
-					name="name"
-					id="name"
-					value={event?.name || ""}
-					onChange={(evt) => setEvent({ ...event, name: evt.target.value })}
-				/>
+				<label htmlFor='name'>Event Title</label>
+				<SmallInput type='text' name='name' id='name' value={event?.name || ""} onChange={(evt) => setEvent({ ...event, name: evt.target.value })} />
 				<br />
-				<label htmlFor="description">Event Description</label>
-				<SmallInput
-					type="text"
-					name="description"
-					id="description"
-					value={event?.description || ""}
-					onChange={(evt) =>
-						setEvent({ ...event, description: evt.target.value })
-					}
-				/>
+				<label htmlFor='description'>Event Description</label>
+				<SmallInput type='text' name='description' id='description' value={event?.description || ""} onChange={(evt) => setEvent({ ...event, description: evt.target.value })} />
 				<br />
-				<label htmlFor="date">Event Date/Time</label>
-				<SmallInput
-					type="datetime-local"
-					name="date"
-					id="date"
-					value={event?.date || ""}
-					onChange={(evt) => setEvent({ ...event, date: evt.target.value })}
-				/>
+				<label htmlFor='date'>Event Date/Time</label>
+				<SmallInput type='datetime-local' name='date' id='date' value={event?.date || ""} onChange={(evt) => setEvent({ ...event, date: evt.target.value })} />
 				<br />
-				<label htmlFor="location">Event Location</label>
-				<SmallInput
-					type="text"
-					name="location"
-					id="location"
-					value={event?.location || ""}
-					onChange={(evt) => setEvent({ ...event, location: evt.target.value })}
-				/>
+				<label htmlFor='location'>Event Location</label>
+				<SmallInput type='text' name='location' id='location' value={event?.location || ""} onChange={(evt) => setEvent({ ...event, location: evt.target.value })} />
 				<br />
-				{eventId ? (
-					<Button type="submit">UPDATE</Button>
-				) : (
-					<Button type="submit">SAVE</Button>
-				)}
-				<Button
-					onClick={() => handleDelete(eventId)}
-					type="button"
-					disabled={disabled}
-				>
+				{eventId ? <Button type='submit'>UPDATE</Button> : <Button type='submit'>SAVE</Button>}
+				<Button onClick={() => handleDelete(eventId)} type='button' disabled={disabled}>
 					DELETE EVENT
 				</Button>
 			</form>

@@ -24,6 +24,6 @@ export const updateEvent = async (eventId, eventData) => {
 	return await eventsAPI.updateEvent(eventId, eventData);
 };
 
-export const deleteEvent = async (eventId) => {
-	return await eventsAPI.deleteEvent(eventId);
+export const deleteEvent = async (eventId, userId) => {
+	return await eventsAPI.deleteEvent(eventId, userId);
 };
