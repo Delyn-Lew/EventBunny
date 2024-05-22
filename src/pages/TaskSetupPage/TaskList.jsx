@@ -1,7 +1,10 @@
 export default function TaskList({ task }) {
 	return (
-		<li key={task.name}>
-			{task.name} - {task.status} - {task.assignee.name || task.user?.name}
+		<li
+			className="px-5 py-3 w-2/3 text-center mb-2 bg-white bg-opacity-80 rounded-lg drop-shadow-xl shadow-inner border-2"
+			key={task.name}
+		>
+			{task.name} - {task.assignee.name || task.user?.name} - {task.status}
 		</li>
 	);
 }

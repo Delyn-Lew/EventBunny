@@ -73,64 +73,75 @@ export default function EventSetupPage({ userID, setShowTimeout }) {
 	return (
 		<div>
 			<br />
-			<EventNavBar
-				eventId={evtId}
-				disabled={disabled}
-				setDisabled={setDisabled}
-			/>
-			<p>EVENTSETUP</p>
-			<form onSubmit={handleSave}>
-				<label htmlFor="name">Event Title</label>
-				<SmallInput
-					type="text"
-					name="name"
-					id="name"
-					value={event?.name || ""}
-					onChange={(evt) => setEvent({ ...event, name: evt.target.value })}
-				/>
-				<br />
-				<label htmlFor="description">Event Description</label>
-				<SmallInput
-					type="text"
-					name="description"
-					id="description"
-					value={event?.description || ""}
-					onChange={(evt) =>
-						setEvent({ ...event, description: evt.target.value })
-					}
-				/>
-				<br />
-				<label htmlFor="date">Event Date/Time</label>
-				<SmallInput
-					type="datetime-local"
-					name="date"
-					id="date"
-					value={event?.date || ""}
-					onChange={(evt) => setEvent({ ...event, date: evt.target.value })}
-				/>
-				<br />
-				<label htmlFor="location">Event Location</label>
-				<SmallInput
-					type="text"
-					name="location"
-					id="location"
-					value={event?.location || ""}
-					onChange={(evt) => setEvent({ ...event, location: evt.target.value })}
-				/>
-				<br />
-				{eventId ? (
-					<Button type="submit">UPDATE</Button>
-				) : (
-					<Button type="submit">SAVE</Button>
-				)}
-				<Button
-					onClick={() => handleDelete(eventId)}
-					type="button"
+			<span className="flex justify-center">
+				<EventNavBar
+					eventId={evtId}
 					disabled={disabled}
+					setDisabled={setDisabled}
+				/>
+			</span>
+			<div className="flex justify-center flex-col items-center h-full w-full my-20">
+				<h2>Event Setup</h2>
+				<form
+					onSubmit={handleSave}
+					className="w-2/3 flex justify-center flex-col items-center bg-white bg-opacity-80 p-5 rounded-lg drop-shadow-xl shadow-inner border-2 my-10"
 				>
-					DELETE EVENT
-				</Button>
-			</form>
+					<label htmlFor="name">Event Title</label>
+					<SmallInput
+						type="text"
+						name="name"
+						id="name"
+						value={event?.name || ""}
+						onChange={(evt) => setEvent({ ...event, name: evt.target.value })}
+					/>
+					<br />
+					<label htmlFor="description">Event Description</label>
+					<SmallInput
+						type="text"
+						name="description"
+						id="description"
+						value={event?.description || ""}
+						onChange={(evt) =>
+							setEvent({ ...event, description: evt.target.value })
+						}
+					/>
+					<br />
+					<label htmlFor="date">Event Date/Time</label>
+					<SmallInput
+						type="datetime-local"
+						name="date"
+						id="date"
+						value={event?.date || ""}
+						onChange={(evt) => setEvent({ ...event, date: evt.target.value })}
+					/>
+					<br />
+					<label htmlFor="location">Event Location</label>
+					<SmallInput
+						type="text"
+						name="location"
+						id="location"
+						value={event?.location || ""}
+						onChange={(evt) =>
+							setEvent({ ...event, location: evt.target.value })
+						}
+					/>
+					<br />
+					<span className="flex justify-center gap-10">
+						{eventId ? (
+							<Button type="submit">UPDATE</Button>
+						) : (
+							<Button type="submit">SAVE</Button>
+						)}
+						<Button
+							onClick={() => handleDelete(eventId)}
+							type="button"
+							disabled={disabled}
+						>
+							DELETE EVENT
+						</Button>
+					</span>
+				</form>
+			</div>
 			<br />
 		</div>
 	);

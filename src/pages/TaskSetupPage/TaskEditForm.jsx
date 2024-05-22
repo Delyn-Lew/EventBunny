@@ -11,7 +11,11 @@ export default function TaskEditForm({
 	handleDelete,
 }) {
 	return (
-		<form onSubmit={() => handleUpdate(task._id, eventId, task)} key={task._id}>
+		<form
+			className=" flex justify-center bg-white bg-opacity-80 p-5 items-center gap-5 "
+			onSubmit={() => handleUpdate(task._id, eventId, task)}
+			key={task._id}
+		>
 			<label htmlFor="name">Task Name</label>
 			<SmallInput
 				type="text"
@@ -34,6 +38,8 @@ export default function TaskEditForm({
     </datalist> */}
 			<label htmlFor="assignee">Assignee</label>
 			<select
+				className="border-opacity-60 border-slate-500 ring-offset-background focus-visible:ring-ring flex
+				text-center rounded-md border text-xs file:border-0 file:bg-transparent file:text-xs file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-7 w-[10rem]"
 				onChange={handleChange("assignee", idx)}
 				name="assignee"
 				id="assignee"
@@ -47,6 +53,8 @@ export default function TaskEditForm({
 			</select>
 			<label htmlFor="status">Status</label>
 			<select
+				className="border-opacity-60 border-slate-500 ring-offset-background focus-visible:ring-ring flex
+			text-center rounded-md border text-xs file:border-0 file:bg-transparent file:text-xs file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-7 w-[10rem]"
 				onChange={handleChange("status", idx)}
 				name="status"
 				id="status"

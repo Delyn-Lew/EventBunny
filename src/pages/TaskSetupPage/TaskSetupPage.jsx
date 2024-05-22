@@ -102,15 +102,22 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 	return (
 		<div>
 			<br />
-			<EventNavBar />
-			<p>TASKSETUP</p>
-			{!isEditPage && <TaskCreateForm users={users} handleSave={handleSave} />}
-
+			<span className="mb-10 flex justify-center gap-10">
+				<EventNavBar />
+			</span>
+			<span className="flex justify-center">
+				<SmallButton onClick={handleSubmit}>Proceed to Overview</SmallButton>
+			</span>
+			<div className="flex justify-center flex-col items-center h-full w-full my-10">
+				<h2 className="text-center">Task Setup</h2>
+				{!isEditPage && (
+					<TaskCreateForm users={users} handleSave={handleSave} />
+				)}
+			</div>
 			<br />
-			<SmallButton onClick={handleSubmit}>PROCEED</SmallButton>
 			<div>
 				{isEditPage ? (
-					<div>
+					<>
 						{tasks?.map((task, idx) => (
 							<TaskEditForm
 								key={task._id}
@@ -123,9 +130,9 @@ export default function TaskSetupPage({ setTasks, tasks, setShowTimeout }) {
 								handleDelete={handleDelete}
 							/>
 						))}
-					</div>
+					</>
 				) : (
-					<ul>
+					<ul className="flex flex-col items-center list-none">
 						{tasks.map((task) => (
 							<TaskList key={task._id} task={task} />
 						))}
