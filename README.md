@@ -16,11 +16,11 @@ Sample Schema: (https://docs.google.com/spreadsheets/d/1CN5hkQg4CIRCpQrwUxx0HWT5
 
 ### ZongHan
 
-- React Lead
+- Express Lead
 
 ### Kavin
 
-- Express Lead
+- React Lead
 
 ## Wireframe
 
