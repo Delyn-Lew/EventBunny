@@ -90,6 +90,12 @@ Event Details Page
 <img src = "Assets/EventDetailsPage_Actual.png" height = "350px">
 </p>
 
+Event Setup Page
+
+<p align="center">
+<img src = "Assets/EventSetUpPage_Actual.png" height = "350px">
+</p>
+
 ## Technologies Used
 
 - MongoDB & Mongoose
