@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchEventsInfo, joinEvent } from "../../utilities/events-service";
 import debug from "debug";
 import Button from "../../components/Button/Button";
+import SmallButton from "../../components/Button/SmallButton";
 
 const log = debug("eventbunny:pages:EventOverviewPage");
 
@@ -97,13 +98,21 @@ export default function EventOverviewPage({ setShowTimeout }) {
                   <td>{new Date(event.date).toLocaleTimeString()}</td>
                   <td>{event.host?.name}</td>
                   <td>
-                    <button
+                    {/* <button
                       className="join-btn"
                       onClick={(e) => handleJoinBtn(event._id, e)}
                       disabled={user._id === event.host._id}
                     >
                       {eventsAttending[event.name] ? "Leave" : "Join"}
-                    </button>
+                    </button> */}
+                    <SmallButton
+                      type="button"
+                      className="join-btn"
+                      onClick={(e) => handleJoinBtn(event._id, e)}
+                      disabled={user._id === event.host._id}
+                    >
+                      {eventsAttending[event.name] ? "Leave" : "Join"}
+                    </SmallButton>
                   </td>
                 </tr>
               );
