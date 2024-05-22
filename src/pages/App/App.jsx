@@ -57,7 +57,7 @@ function App() {
 									<Route path='/dashboard' element={<EventOverviewPage setShowTimeout={setShowTimeout} />} />
 									<Route path='/user' element={<MyEventsPage />} />
 									<Route path='/events/create' element={<EventSetupPage userID={user["_id"]} setShowTimeout={setShowTimeout} />} />
-									<Route path='/events/edit/:eventId' element={<EventSetupPage setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
+									<Route path='/events/edit/:eventId' element={<EventSetupPage userID={user["_id"]} setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId' element={<EventDetailsPage admin={admin} setTasks={setTasks} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId/tasks/new' element={<TaskSetupPage setTasks={setTasks} tasks={tasks} setUser={setUser} setShowTimeout={setShowTimeout} />} />
 									<Route path='/events/:eventId/tasks/edit' element={<TaskSetupPage setTasks={setTasks} tasks={tasks} setUser={setUser} setShowTimeout={setShowTimeout} />} />

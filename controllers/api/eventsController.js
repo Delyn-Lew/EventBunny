@@ -1,5 +1,6 @@
 const debug = require("debug")("eventbunny:eventsController");
 const Event = require("../../models/event");
+const adminID = process.env.ADMINID;
 
 const index = async (req, res) => {
 	try {
@@ -35,11 +36,21 @@ const create = async (req, res) => {
 
 const edit = async (req, res) => {
 	try {
-		const event = await Event.findById(req.params.eventId);
+		const event = await Event.findById(req.params.eventId).populate("host");
 		if (!event) {
 			return res.status(404).json({ error: "event not found" });
 		}
-		const { name, description, location, date } = req.body;
+		const host = event.host._id.toString();
+		const { name, description, location, date, user } = req.body;
+		// debug("user", user);
+		// debug("adminID", adminID);
+		// debug("host", host);
+		// debug(host !== user);
+		// debug(user !== adminID);
+		// debug(host !== user && user !== adminID);
+		if (host !== user && user !== adminID) {
+			return res.status(401).json("unauthrorized user");
+		}
 		event.name = name;
 		event.description = description;
 		event.location = location;
@@ -53,11 +64,25 @@ const edit = async (req, res) => {
 
 const deleteOne = async (req, res) => {
 	try {
-		const event = await Event.findByIdAndDelete(req.params.eventId);
+		// const event = await Event.findByIdAndDelete(req.params.eventId);
+		const event = await Event.findById(req.params.eventId).populate("host");
+		// debug("event", event);
 		if (!event) {
 			return res.status(404).json({ error: "Event not found" });
 		}
-		res.status(200).json(event);
+		const host = event.host._id.toString();
+		const { userID } = req.body;
+		// debug("userID", userID);
+		// debug("adminID", adminID);
+		// debug("host", host);
+		// debug(host !== userID);
+		// debug(userID !== adminID);
+		// debug(host !== userID && userID !== adminID);
+		if (host !== userID && userID !== adminID) {
+			return res.status(401).json("unauthrorized user");
+		}
+		await event.deleteOne();
+		res.status(200).json({ message: "event deleted successfully" });
 	} catch (error) {
 		res.status(500).json({ error: "Error deleting event" });
 	}
@@ -107,7 +132,6 @@ const join = async (req, res) => {
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
-
 
 module.exports = {
 	create,
