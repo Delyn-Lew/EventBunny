@@ -63,7 +63,7 @@ Learnt how to do validation in the front end, how to use the uselocation hook, h
 Trello
 
 <p align="center">
-<img src = "Assets/Trello.png" height = "350px">
+<img src = "Assets/Trello-Actual.png" height = "350px">
 </p>
 
 Dashboard
@@ -150,6 +150,10 @@ Task Setup Page
 <img src = "Assets/EditTaskPage-Actual.png" height = "350px">
 </p>
 
+## Icebox
+
+- Add a My Task summary page
+
 ## Technologies Used
 
 - MongoDB & Mongoose
@@ -159,3 +163,6 @@ Task Setup Page
 - TailwindCSS
 - Render deployment
 - Git & GitHub
+- Vite
+- Figma
+- Trello
